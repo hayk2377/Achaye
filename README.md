@@ -1,5 +1,9 @@
-Include the tile of the project and a brief description about the project on the README file 
-**abebe
+# Pharmaco
+* Pharmaco is inteded to make finding medicine easy.
+It helps users find the nearest pharmacy that has thier medicine.
+If they find it, they can order to reserve it via the app. They can later pick it up themselves or get it delivered to them via other means(outside the scope of the app).
+* It helps pharmacy owners post the amount of medicine they have in stock.
+
 
 | Name | Id |
 | -------- | ------- |
