@@ -6,7 +6,7 @@ The project is inteded to make finding medicine easy. It helps users find the ne
 * It helps pharmacy owners display the price and amount of drugs they have in store.
 
 
-#Group Members
+##Group Members
 | Name | Id |
 | -------- | ------- |
 | Gedion Ezra  | UGR/0448/13 |
