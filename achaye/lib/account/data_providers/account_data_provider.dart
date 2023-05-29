@@ -1,56 +1,52 @@
 import 'dart:convert';
-import 'package:dio/dio.dart';
-import '../models/user.dart';
+import 'package:achaye/utils/json_header.dart';
+import 'package:achaye/utils/jwt_store.dart';
 import 'package:http/http.dart' as http;
 
 class AccountDataProvider {
-  Dio dio;
-  AccountDataProvider(this.dio);
-  final baseUrl = "http://localhost:3000/api";
+  final String baseUrl;
+  HeaderProvider headerProvider;
+  AccountDataProvider({required this.baseUrl, required this.headerProvider});
 
-  Future<User> create(User user) async {
-    var response = await http.post(Uri.parse('$baseUrl/users'),
-        headers: <String, String>{"Content-Type": "application/json"},
-        body: jsonEncode(user.toJson()));
-    if (response.statusCode != 200) throw Exception("Could not create accoutn");
+  Future<http.Response> create(Map<String, Object> userJson) async {
+    var response = await http.post(
+      Uri.parse('$baseUrl/users'),
+      headers: await headerProvider.create(withToken: false),
+      body: jsonEncode(userJson),
+    );
 
-    var json = jsonDecode(response.body);
-    return User.fromJson(json);
+    return response;
   }
 
-  Future<User> login(String email, String password) async {
-    var response = await http.post(Uri.parse('$baseUrl/users/logged-in'),
-        headers: <String, String>{"Content-Type": "application/json"},
-        body: jsonEncode({"email": email, "password": password}));
+  Future<http.Response> login(String email, String password) async {
+    var response = await http.post(
+      Uri.parse('$baseUrl/users/logged-in'),
+      headers: await headerProvider.create(withToken: false),
+      body: jsonEncode({email: email, password: password}),
+    );
 
-    if (response.statusCode != 200) throw Exception("bad status code");
-    var json = jsonDecode(response.body);
-    if (json.contains("error")) throw Exception(json["error"]);
-
-    return User.fromJson(json);
+    return response;
   }
 
-  void logout() async {
-    var response = await http.delete(Uri.parse('$baseUrl/users/logged-in'));
-    if (response.statusCode != 200) throw Exception("bad status code");
-    var json = jsonDecode(response.body);
-    if (json.contains("error")) throw Exception(json["error"]);
+  Future<http.Response> logOut() async {
+    var response = await http.delete(
+        //
+        Uri.parse('$baseUrl/users/logged-in'),
+        headers: await headerProvider.create());
+
+    return response;
   }
 
-  Future<User> update(User user) async {
+  Future<http.Response> update(Map<String, Object> profileJson) async {
     var response = await http.put(Uri.parse('$baseUrl/profile'),
-        headers: <String, String>{"Content-Type": "application/json"},
-        body: jsonEncode(user.toJson()));
-    if (response.statusCode != 200) throw Exception("Could not update profile");
+        headers: await headerProvider.create(), body: jsonEncode(profileJson));
 
-    var json = jsonDecode(response.body);
-    return User.fromJson(json);
+    return response;
   }
 
-  void delete() async {
-    var response = await http.delete(Uri.parse('$baseUrl/'));
-    var json = jsonDecode(response.body);
-
-    if (json.contains("error")) throw Exception(json["error"]);
+  Future<http.Response> delete() async {
+    var response = await http.delete(Uri.parse('$baseUrl/'),
+        headers: await headerProvider.create());
+    return response;
   }
 }

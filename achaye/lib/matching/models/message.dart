@@ -1,8 +1,10 @@
-class Message {
+import 'package:equatable/equatable.dart';
+
+class Message extends Equatable {
   String content;
   bool sentBySelf;
 
-  Message(this.content, this.sentBySelf);
+  Message({required this.content, required this.sentBySelf});
   Message.fromJson(Map<String, Object> json)
       : content = json["content"] as String,
         sentBySelf = json["sentBySelf"] as bool;
@@ -11,4 +13,7 @@ class Message {
     Map<String, Object> json = {"content": content, "sentBySelf": sentBySelf};
     return json;
   }
+
+  @override
+  List<Object?> get props => [content, sentBySelf];
 }
