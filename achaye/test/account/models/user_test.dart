@@ -2,7 +2,9 @@ import 'package:achaye/account/models/user.dart';
 import 'package:test/test.dart';
 
 void main() {
-  var user = User(
+  User user;
+
+  user = User(
       email: "abc@gmail.com",
       password: "abc",
       firstName: "abc",
@@ -38,6 +40,23 @@ void main() {
       "photoUrl": "",
       "religiousPreferences": <String>["abc", "def"],
       "hobbies": <String>["hij", "klm"]
+    });
+    expect(user.firstName, sameUser.firstName);
+  });
+
+  test('should accept List<dynamic>', () {
+    var sameUser = User.fromJson(const {
+      "firstName": "abc",
+      "email": "",
+      "password": "",
+      "lastName": "",
+      "sex": "",
+      "religion": "",
+      "birthday": "",
+      "bio": "",
+      "photoUrl": "",
+      "religiousPreferences": <dynamic>["abc", "def"],
+      "hobbies": <dynamic>["hij", "klm"]
     });
     expect(user.firstName, sameUser.firstName);
   });

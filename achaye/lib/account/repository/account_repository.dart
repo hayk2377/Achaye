@@ -32,7 +32,7 @@ class Repository {
   }
 
   Future<bool> delete() async {
-    var response = await accountDataProvider.delete();
+    await accountDataProvider.delete();
     return true;
   }
 }

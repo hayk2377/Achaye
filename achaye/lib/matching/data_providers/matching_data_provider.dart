@@ -33,4 +33,27 @@ class MatchingDataProvider {
 
     return response;
   }
+
+  Future<http.Response> createAppointment(
+      String chatId, String appointment) async {
+    var response = await http
+        .post(Uri.parse('$baseUrl/appointments/$chatId/$appointment'));
+    return response;
+  }
+
+  Future<http.Response> deleteAppointment(
+      String chatId, String appointment) async {
+    var response = await http
+        .delete(Uri.parse('$baseUrl/appointments/$chatId/$appointment'));
+    return response;
+  }
+
+  Future<http.Response> editAppointment(
+      String chatId, String appointment) async {
+    var response =
+        await http.put(Uri.parse('$baseUrl/appointments/$chatId/$appointment'));
+    return response;
+  }
+
+  //get
 }

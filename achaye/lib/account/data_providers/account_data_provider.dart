@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:achaye/utils/json_header.dart';
-import 'package:achaye/utils/jwt_store.dart';
 import 'package:http/http.dart' as http;
 
 class AccountDataProvider {
@@ -22,7 +21,7 @@ class AccountDataProvider {
     var response = await http.post(
       Uri.parse('$baseUrl/users/logged-in'),
       headers: await headerProvider.create(withToken: false),
-      body: jsonEncode({email: email, password: password}),
+      body: jsonEncode({"email": email, "password": password}),
     );
 
     return response;

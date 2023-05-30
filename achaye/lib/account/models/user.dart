@@ -29,7 +29,7 @@ class User extends Equatable {
     required this.hobbies,
   });
 
-  User.fromJson(Map<String, Object> json)
+  User.fromJson(Map<String, dynamic> json)
       : email = json["email"] as String,
         password = json["password"] as String,
         firstName = json["firstName"] as String,
@@ -39,8 +39,8 @@ class User extends Equatable {
         birthday = json["birthday"] as String,
         bio = json["bio"] as String,
         photoUrl = json["photoUrl"] as String,
-        religiousPreferences = json["religiousPreferences"] as List<String>,
-        hobbies = json["hobbies"] as List<String>;
+        religiousPreferences = List<String>.from(json["religiousPreferences"]),
+        hobbies = List<String>.from(json["hobbies"]);
 
   Map<String, Object> toJson() {
     Map<String, Object> json = {

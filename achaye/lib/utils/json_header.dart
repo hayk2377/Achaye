@@ -1,9 +1,9 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HeaderProvider {
-  Future<Map<String, String>> create({bool withToken = false}) async {
+  Future<Map<String, String>> create({bool withToken = true}) async {
     Map<String, String> header = {
-      'Content-Type': 'application/json;',
+      'Content-Type': 'application/json',
     };
 
     if (withToken) {

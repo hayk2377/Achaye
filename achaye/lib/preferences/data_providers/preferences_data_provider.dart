@@ -15,6 +15,15 @@ class PreferencesDataProvider {
     return response;
   }
 
+  Future<http.Response> create(Map<String, Object> updatedPreferences) async {
+    var response = await http.post(
+      Uri.parse('$baseUrl/profile'),
+      headers: await headerProvider.create(),
+      body: jsonEncode(updatedPreferences),
+    );
+    return response;
+  }
+
   Future<http.Response> update(Map<String, Object> updatedPreferences) async {
     var response = await http.put(
       Uri.parse('$baseUrl/profile'),
