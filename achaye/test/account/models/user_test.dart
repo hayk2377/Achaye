@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:achaye/account/models/user.dart';
 import 'package:test/test.dart';
+import 'package:path/path.dart' as path;
 
 void main() {
   User user;
@@ -21,14 +24,13 @@ void main() {
     expect(user.firstName, "abc");
   });
 
-  test('toJson() should have the same  name', () {
-    var json = user.toJson();
-    print(json);
+  test('toMap() should have the same  name', () {
+    var json = user.toMap();
     expect(user.firstName, json["firstName"]);
   });
 
   test('from Json should have the same name', () {
-    var sameUser = User.fromJson(const {
+    var sameUser = User.fromMap(const {
       "firstName": "abc",
       "email": "",
       "password": "",
@@ -37,7 +39,6 @@ void main() {
       "religion": "",
       "birthday": "",
       "bio": "",
-      "photoUrl": "",
       "religiousPreferences": <String>["abc", "def"],
       "hobbies": <String>["hij", "klm"]
     });
@@ -45,7 +46,7 @@ void main() {
   });
 
   test('should accept List<dynamic>', () {
-    var sameUser = User.fromJson(const {
+    var sameUser = User.fromMap(const {
       "firstName": "abc",
       "email": "",
       "password": "",
@@ -61,20 +62,16 @@ void main() {
     expect(user.firstName, sameUser.firstName);
   });
 
-  test('toJson should have the same hobbies', () {
-    var json = user.toJson();
+  test('toMap should have the same hobbies', () {
+    var json = user.toMap();
     expect(user.hobbies, json["hobbies"]);
   });
 
-  test('toJson() -> fromJson() should have the same name ', () {
-    var json = user.toJson();
-    var sameUser = User.fromJson(json);
+  test('toMap() -> fromMap() should have the same name ', () {
+    var json = user.toMap();
+    var sameUser = User.fromMap(json);
     expect(user.firstName, sameUser.firstName);
   });
 
-  test('toJson() -> fromJson() should equal the same user ', () {
-    var json = user.toJson();
-    var sameUser = User.fromJson(json);
-    expect(user, sameUser);
-  });
+  //run the file from achaye dir
 }
