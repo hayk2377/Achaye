@@ -19,7 +19,7 @@ class HeaderProvider {
     if (accessToken == null) {
       throw Exception("No Jwt access token!");
     } else {
-      return accessToken as String;
+      return accessToken;
     }
   }
 

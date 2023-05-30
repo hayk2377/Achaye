@@ -26,8 +26,8 @@ void main() {
       birthday: "0123",
       bio: "abc bio",
       photoUrl: "abc.jpg",
-      religiousPreferences: ["abc"],
-      hobbies: ["abc", "cde"]);
+      religiousPreferences: const ["abc"],
+      hobbies: const ["abc", "cde"]);
 
   test('provider has base url', () {
     expect(dp.baseUrl, isNotNull);

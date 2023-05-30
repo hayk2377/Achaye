@@ -4,8 +4,8 @@ import 'package:test/test.dart';
 void main() {
   var preferences = Preferences(
       photoUrl: "https://image.jpg",
-      religiousPreferences: ["abc", "def"],
-      hobbies: ["ave", "def"]);
+      religiousPreferences: const ["abc", "def"],
+      hobbies: const ["ave", "def"]);
   test("photUrl should be the same", () {
     expect(preferences.photoUrl, "https://image.jpg");
   });
