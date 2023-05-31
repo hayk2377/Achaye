@@ -8,7 +8,7 @@ class MatchingRepository {
 
   Future<List<OtherUser>> getSuggestions() async {
     var response = await matchingDataProvider.getSuggestions();
-    List<Map<String, Object>> suggestions = jsonDecode(response.body);
+    List<Map<String, dynamic>> suggestions = jsonDecode(response.body);
     List<OtherUser> users =
         suggestions.map((suggested) => OtherUser.fromMap(suggested)).toList();
     return users;

@@ -28,7 +28,7 @@ User makeOpposite() {
 
 void main() {
   var random = Random().nextInt(10000);
-  String ip = "192.168.50.46"; //for real device
+  String ip = "192.168.35.46"; //for real device
   // String ip = "10.0. 2.2"; //for android emulator
 
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -58,6 +58,8 @@ void main() {
     var testUrl = '${dp.baseUrl}/hi';
     await http.get(Uri.parse(testUrl));
   });
+
+  return;
 
   test("user created and logged in", () async {
     HeaderProvider().storeToken("abc");

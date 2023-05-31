@@ -6,7 +6,7 @@ class Message extends Equatable {
   DateTime time = DateTime.now();
 
   Message({required this.content, required this.sentBySelf});
-  Message.fromMap(Map<String, Object> json)
+  Message.fromMap(Map<String, dynamic> json)
       : content = json["content"] as String,
         sentBySelf = json["sentBySelf"] as bool;
 

@@ -13,7 +13,7 @@ class Match extends Equatable {
     required this.appointment,
   });
 
-  Match.fromMap(json)
+  Match.fromMap(Map<String, dynamic> json)
       : chatId = json["chatId"] as String,
         partnerId = json["partnerId"] as String,
         unreadCount = json["unreadCount"] as int,
