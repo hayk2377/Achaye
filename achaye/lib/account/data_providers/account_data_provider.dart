@@ -33,14 +33,14 @@ class AccountDataProvider {
     return response;
   }
 
-  // Future<http.Response> logOut() async {
-  //   var response = await http.delete(
-  //       //
-  //       Uri.parse('$baseUrl/users/logged-in'),
-  //       headers: await headerProvider.create());
+  Future<http.Response> logOut() async {
+    var response = await http.delete(
+        //
+        Uri.parse('$baseUrl/users/logged-in'),
+        headers: await headerProvider.create());
 
-  //   return response;
-  // }
+    return response;
+  }
 
   Future<http.Response> update(Map<String, dynamic> profileJson) async {
     var response = await http.put(Uri.parse('$baseUrl/profile'),

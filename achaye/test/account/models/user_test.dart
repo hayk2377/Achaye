@@ -31,6 +31,7 @@ void main() {
 
   test('from Json should have the same name', () {
     var sameUser = User.fromMap(const {
+      "_id": "abc",
       "firstName": "abc",
       "email": "",
       "password": "",
@@ -47,6 +48,7 @@ void main() {
 
   test('should accept List<dynamic>', () {
     var sameUser = User.fromMap(const {
+      "_id": "ada",
       "firstName": "abc",
       "email": "",
       "password": "",
@@ -69,6 +71,7 @@ void main() {
 
   test('toMap() -> fromMap() should have the same name ', () {
     var json = user.toMap();
+    json["_id"] = "adf";
     var sameUser = User.fromMap(json);
     expect(user.firstName, sameUser.firstName);
   });

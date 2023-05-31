@@ -12,7 +12,7 @@ void main() {
     religion: "abc",
     bio: "abc",
     //
-    hobbies: ["abc", "cde"],
+    hobbies: const ["abc", "cde"],
     photoUrl: "https://image.jpg",
   );
 

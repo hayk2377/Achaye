@@ -1,15 +1,32 @@
+import 'package:achaye/account/widgets/login_route.dart';
+import 'package:achaye/matching/chat_list/chat_bloc/chat_bloc.dart';
+import 'package:achaye/suggestions/swiping/bloc/swiping_bloc.dart';
+import 'package:achaye/suggestions/widgets/discover_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:go_router/go_router.dart';
+
+import 'matching/chat_list/widgets/chat_list.dart';
 
 class AchayeApp extends StatelessWidget {
   const AchayeApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("achaye")),
-      body: Center(child: Dummy()),
+    final GoRouter _router = GoRouter(routes: [
+      GoRoute(path: '/', builder: ((context, state) => Login())),
+      GoRoute(path: '/discover', builder: (context, state) => Discover(),),
+      GoRoute(path: '/chat_list', builder: (context, state) => ChatList(),)
+    ]);
+    return MaterialApp(
+      home: MultiBlocProvider(providers: [
+        BlocProvider(create: ((context) => SwipingBloc())),
+        BlocProvider(create: ((context) => ChatBloc())),
+      ], 
+      child: MaterialApp.router(routerConfig: _router,),
+      )
     );
   }
 }
@@ -41,6 +58,6 @@ class _DummyState extends State<Dummy> {
 
   @override
   Widget build(BuildContext context) {
-    return Dummy();
+    return const Text('reply');
   }
 }
