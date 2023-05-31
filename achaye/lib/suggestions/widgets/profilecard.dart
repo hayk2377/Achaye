@@ -1,6 +1,4 @@
-import 'package:achaye/suggestions/swiping/bloc/swiping_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import '../models/profile.dart';
 
 class ProfileCard extends StatelessWidget {
@@ -10,8 +8,6 @@ class ProfileCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = context.watch<SwipingBloc>();
-    final state = bloc.state;
 
     return Container(
       height: 580,

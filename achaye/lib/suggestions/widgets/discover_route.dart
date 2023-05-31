@@ -15,6 +15,9 @@ class Discover extends StatelessWidget {
         child: Stack(
           children: [
             BackgroundCurveWidget(),
+            SizedBox(
+              height: 10,
+            ),
             MainSwipingWidget(),
           ],
         ),
@@ -46,50 +49,50 @@ class MainSwipingWidget extends StatelessWidget {
         ),
       ));
     } else if (state is SwipingLoaded) {
-      return SingleChildScrollView(
-        child: Container(
-          alignment: Alignment.center,
-          margin: EdgeInsets.only(top: 150),
-          child: Dismissible(
-              onDismissed: (direction) {
-                if (direction == DismissDirection.startToEnd) {
-                  bloc.add(SwipeRight());
-                } else if (direction == DismissDirection.endToStart) {
-                  bloc.add(SwipeLeft());
-                }
-              },
-              key: Key(state.profiles[state.index].id.toString()),
-              child: Column(
-                children: [
-                  ProfileCard(
-                    profile: (state as SwipingLoaded)
-                        .profiles[(state as SwipingLoaded).index],
-                    iconPress: () {
-                      bloc.add(InfoTap());
-                    },
-                  ),
-                  (state.bio == true
-                      ? Container(
-                          alignment: Alignment.center,
-                          width: 340,
-
-                          child: Card(
-                            elevation: 8,
-                            child: Container(
-                              padding: EdgeInsets.all(30),
-                              child: Wrap(
-                                alignment: WrapAlignment.center,
-                                children: [
-                                  Text(state.profiles[state.index].bio!)
-                                ],
-                              ),
+      return Container(
+        alignment: Alignment.center,
+        margin: EdgeInsets.only(top: 150),
+        child: Dismissible(
+            onDismissed: (direction) {
+              if (direction == DismissDirection.startToEnd) {
+                bloc.add(SwipeRight());
+              } else if (direction == DismissDirection.endToStart) {
+                bloc.add(SwipeLeft());
+              }
+            },
+            key: Key(state.profiles[state.index].id.toString()),
+            child: Column(
+              children: [
+                ProfileCard(
+                  profile: (state as SwipingLoaded)
+                      .profiles[(state as SwipingLoaded).index],
+                  iconPress: () {
+                    bloc.add(InfoTap());
+                  },
+                ),
+                SingleChildScrollView(
+                  child: (state.bio == true
+                    ? Container(
+                        alignment: Alignment.center,
+                        width: 340,
+                        child: Card(
+                          elevation: 8,
+                          child: Container(
+                            padding: EdgeInsets.all(30),
+                            child: Wrap(
+                              alignment: WrapAlignment.center,
+                              children: [
+                                Text(state.profiles[state.index].bio!)
+                              ],
                             ),
                           ),
-                        )
-                      : Container())
-                ],
-              )),
-        ),
+                        ),
+                      )
+                    : Container()) ,
+                ),
+                
+              ],
+            )),
       );
     } else if (state is NoMoreMatches) {
       return Container(
