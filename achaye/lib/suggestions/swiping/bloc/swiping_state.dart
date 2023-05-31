@@ -16,11 +16,15 @@ class SwipingError extends SwipingState {}
 class SwipingLoaded extends SwipingState {
   final List<Profile> profiles;
   final int index;
+  final bool bio;
+  final bool options;
 
-  const SwipingLoaded(this.profiles, this.index);
+  const SwipingLoaded(this.profiles, this.index, this.bio, this.options);
 
   @override
-  List<Object?> get props => [profiles, index];
+  List<Object?> get props => [profiles, index, bio];
 }
 
-class NoMoreMatches extends SwipingState{}
+class NoMoreMatches extends SwipingState {}
+
+enum BioRender { None, Render }

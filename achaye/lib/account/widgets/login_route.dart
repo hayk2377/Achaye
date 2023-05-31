@@ -22,6 +22,7 @@ class LoginForm extends StatelessWidget {
 
     return BlocConsumer<ValidatorBloc, ValidatorState>(
       listener: (context, state) {
+        print(state);
         if (state is ValidatorSuccess) {
           context.go('/discover');
         }

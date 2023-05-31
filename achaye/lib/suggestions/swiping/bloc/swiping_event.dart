@@ -7,11 +7,12 @@ abstract class SwipingEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class GiveMeData extends SwipingEvent {}
 
-class GiveMeData extends SwipingEvent{}
+class SwipeRight extends SwipingEvent {}
 
-class SwipeRight extends SwipingEvent{}
+class SwipeLeft extends SwipingEvent {}
 
-class SwipeLeft extends SwipingEvent{}
+class InfoTap extends SwipingEvent {}
 
-class NoMoreData extends SwipingEvent{}
+class MoreOptionsTap extends SwipingEvent{}
