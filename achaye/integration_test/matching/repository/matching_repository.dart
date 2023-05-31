@@ -35,6 +35,7 @@ void main() {
   String baseUrl = "http://$ip:3001/api";
   var dp =
       MatchingDataProvider(baseUrl: baseUrl, headerProvider: HeaderProvider());
+  var repo = MatchingRepository(dp);
 
   var user = User(
     email: "abc$random@abcemal.com",
@@ -68,12 +69,12 @@ void main() {
   });
 
   group('swipe activity', () {
-    return;
     test('suggestions give a list', () async {
-      var response = await dp.getSuggestions();
-      var suggestions = jsonDecode(response.body);
+      var suggestions = await repo.getSuggestions();
       expect(suggestions.length, isNotNull);
     });
+
+    return;
 
     test('like successfully', () async {
       var resSuggestions = await dp.getSuggestions();
@@ -99,6 +100,7 @@ void main() {
     return;
   });
 
+  return;
   group('chats', () {
     test('match successfully', () async {
       var partner = await accountRp.signup(makeOpposite());

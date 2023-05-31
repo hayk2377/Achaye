@@ -1,11 +1,18 @@
 import 'dart:convert';
 import 'package:achaye/utils/json_header.dart';
 import 'package:http/http.dart' as http;
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 class MatchingDataProvider {
   final String baseUrl;
+  late final String webSocketBaseUrl;
   HeaderProvider headerProvider;
-  MatchingDataProvider({required this.baseUrl, required this.headerProvider});
+
+  MatchingDataProvider({required this.baseUrl, required this.headerProvider}) {
+    var uri = Uri.parse(baseUrl);
+    var hostName = uri.host;
+    webSocketBaseUrl = "ws://$hostName/";
+  }
 
   Future<http.Response> getSuggestions() async {
     var response = await http.get(Uri.parse('$baseUrl/suggestions'),
@@ -47,23 +54,30 @@ class MatchingDataProvider {
         Uri.parse(
           '$baseUrl/appointments/$chatId/',
         ),
+        headers: await headerProvider.create(),
         body: jsonEncode({"appointment": appointment}));
     return response;
   }
 
-  Future<http.Response> deleteAppointment(
-      String chatId, String appointment) async {
-    var response =
-        await http.delete(Uri.parse('$baseUrl/appointments/$chatId'));
+  Future<http.Response> deleteAppointment(String chatId) async {
+    var response = await http.delete(
+      Uri.parse('$baseUrl/appointments/$chatId'),
+      headers: await headerProvider.create(),
+    );
     return response;
   }
 
   Future<http.Response> editAppointment(
       String chatId, String appointment) async {
     var response = await http.put(Uri.parse('$baseUrl/appointments/$chatId/'),
+        headers: await headerProvider.create(),
         body: jsonEncode({"appointment": appointment}));
     return response;
   }
 
-  //get
+  WebSocketChannel getWebSocketChannel(chatId) {
+    var channel =
+        WebSocketChannel.connect(Uri.parse('$webSocketBaseUrl/$chatId'));
+    return channel;
+  }
 }

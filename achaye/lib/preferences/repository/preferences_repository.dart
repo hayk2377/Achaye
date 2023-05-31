@@ -8,20 +8,19 @@ class PreferencesRepository {
 
   Future<Preferences> get() async {
     var response = await preferencesDataProvider.get();
-    Preferences preferences = Preferences.fromJson(jsonDecode(response.body));
+    Preferences preferences = Preferences.fromMap(jsonDecode(response.body));
     return preferences;
   }
 
   Future<Preferences> create(Preferences newPreferences) async {
-    var response =
-        await preferencesDataProvider.update(newPreferences.toJson());
-    return Preferences.fromJson(jsonDecode(response.body));
+    var response = await preferencesDataProvider.update(newPreferences.toMap());
+    return Preferences.fromMap(jsonDecode(response.body));
   }
 
   Future<Preferences> update(Preferences updatedPreferences) async {
     var response =
-        await preferencesDataProvider.update(updatedPreferences.toJson());
-    return Preferences.fromJson(jsonDecode(response.body));
+        await preferencesDataProvider.update(updatedPreferences.toMap());
+    return Preferences.fromMap(jsonDecode(response.body));
   }
 
   Future<bool> delete() async {

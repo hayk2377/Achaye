@@ -4,7 +4,7 @@ class Match extends Equatable {
   String chatId;
   String partnerId;
   int unreadCount;
-  String appointment;
+  String? appointment;
 
   Match({
     required this.chatId,
@@ -13,22 +13,22 @@ class Match extends Equatable {
     required this.appointment,
   });
 
-  Match.fromJson(json)
+  Match.fromMap(json)
       : chatId = json["chatId"] as String,
         partnerId = json["partnerId"] as String,
         unreadCount = json["unreadCount"] as int,
-        appointment = json["appointment"] as String;
+        appointment = json["appointment"];
 
-  Map<String, Object> toJson() {
-    Map<String, Object> json = {
-      "chatId": chatId,
-      "partnerId": partnerId,
-      "unreadCount": unreadCount,
-      "appointment": appointment
-    };
+  // Map<String, dynamic> toMap() {
+  //   Map<String, dynamic> map = {
+  //     "chatId": chatId,
+  //     "partnerId": partnerId,
+  //     "unreadCount": unreadCount,
+  //     "appointment": appointment
+  //   };
 
-    return json;
-  }
+  // return map;
+  // }
 
   @override
   List<Object?> get props => [

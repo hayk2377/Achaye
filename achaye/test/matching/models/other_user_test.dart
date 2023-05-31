@@ -20,13 +20,13 @@ void main() {
     expect(otherUser.firstName, "abc");
   });
 
-  test('toJson() should have the same  name', () {
-    var json = otherUser.toJson();
+  test('toMap() should have the same  name', () {
+    var json = otherUser.toMap();
     expect(otherUser.firstName, json["firstName"]);
   });
 
   test('from Json should have the same name', () {
-    var sameUser = OtherUser.fromJson(const {
+    var sameUser = OtherUser.fromMap(const {
       "id": "abc",
       "firstName": "abc",
       "lastName": "abc",
@@ -40,20 +40,20 @@ void main() {
     expect(otherUser.firstName, sameUser.firstName);
   });
 
-  test('toJson should have the same hobbies', () {
-    var json = otherUser.toJson();
+  test('toMap should have the same hobbies', () {
+    var json = otherUser.toMap();
     expect(otherUser.hobbies, json["hobbies"]);
   });
 
-  test('toJson() -> fromJson() should have the same name ', () {
-    var json = otherUser.toJson();
-    var sameUser = OtherUser.fromJson(json);
+  test('toMap() -> fromMap() should have the same name ', () {
+    var json = otherUser.toMap();
+    var sameUser = OtherUser.fromMap(json);
     expect(otherUser.firstName, sameUser.firstName);
   });
 
-  test('toJson() -> fromJson() should equal the same user ', () {
-    var json = otherUser.toJson();
-    var sameUser = OtherUser.fromJson(json);
+  test('toMap() -> fromMap() should equal the same user ', () {
+    var json = otherUser.toMap();
+    var sameUser = OtherUser.fromMap(json);
     expect(otherUser, sameUser);
   });
 }

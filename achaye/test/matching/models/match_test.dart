@@ -2,7 +2,7 @@ import 'package:achaye/matching/models/match.dart';
 import 'package:test/test.dart';
 
 void main() {
-  var match = Match(
+  var matchWithAppointment = Match(
     chatId: "abc",
     partnerId: "abcd",
     unreadCount: 5,
@@ -10,17 +10,17 @@ void main() {
   );
 
   test("chatId should be the same", () {
-    expect(match.chatId, "abc");
+    expect(matchWithAppointment.chatId, "abc");
   });
 
-  test("toJson should have chatId", () {
-    var json = match.toJson();
-    expect(match.chatId, json["chatId"]);
-  });
+  test("should have appoinment if not null", () {
+    var match = Match.fromMap({
+      "chatId": "abc",
+      "partnerId": "abcs",
+      "unreadCount": 5,
+      "appointment": "app date"
+    });
 
-  test("toJson() fromJson() should equal original match", () {
-    var json = match.toJson();
-    var sameMatch = Match.fromJson(json);
-    expect(match, sameMatch);
+    expect(match.appointment, "app date");
   });
 }

@@ -6,11 +6,11 @@ class Message extends Equatable {
   DateTime time = DateTime.now();
 
   Message({required this.content, required this.sentBySelf});
-  Message.fromJson(Map<String, Object> json)
+  Message.fromMap(Map<String, Object> json)
       : content = json["content"] as String,
         sentBySelf = json["sentBySelf"] as bool;
 
-  Map<String, Object> toJson() {
+  Map<String, Object> toMap() {
     Map<String, Object> json = {
       "content": content,
       "sentBySelf": sentBySelf,

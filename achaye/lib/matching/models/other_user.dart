@@ -27,7 +27,7 @@ class OtherUser extends Equatable {
     required this.photoUrl,
   });
 
-  OtherUser.fromJson(Map<String, Object> json)
+  OtherUser.fromMap(Map<String, Object> json)
       : id = json["id"] as String,
         firstName = json["firstName"] as String,
         lastName = json["lastName"] as String,
@@ -40,7 +40,7 @@ class OtherUser extends Equatable {
         photoUrl = json["photoUrl"] as String,
         hobbies = json["hobbies"] as List<String>;
 
-  Map<String, Object> toJson() {
+  Map<String, Object> toMap() {
     Map<String, Object> json = {
       "id": id,
       "firstName": firstName,

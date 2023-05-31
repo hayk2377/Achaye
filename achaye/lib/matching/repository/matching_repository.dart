@@ -10,7 +10,7 @@ class MatchingRepository {
     var response = await matchingDataProvider.getSuggestions();
     List<Map<String, Object>> suggestions = jsonDecode(response.body);
     List<OtherUser> users =
-        suggestions.map((suggested) => OtherUser.fromJson(suggested)).toList();
+        suggestions.map((suggested) => OtherUser.fromMap(suggested)).toList();
     return users;
   }
 
@@ -31,8 +31,7 @@ class MatchingRepository {
   }
 
   Future<bool> deleteAppointment(String chatId, String appointment) async {
-    var response =
-        await matchingDataProvider.deleteAppointment(chatId, appointment);
+    var response = await matchingDataProvider.deleteAppointment(chatId);
     return response.statusCode == 200;
   }
 
@@ -40,5 +39,14 @@ class MatchingRepository {
     var response =
         await matchingDataProvider.editAppointment(chatId, appointment);
     return response.statusCode == 200;
+  }
+
+  Function(String) enterChat(
+      {required String chatId, required void Function(String) onMessage}) {
+    var wsChannel = matchingDataProvider.getWebSocketChannel(chatId);
+    var stream = wsChannel.stream;
+    stream.listen((data) => onMessage(data as String));
+
+    return (String message) => wsChannel.sink.add(message);
   }
 }

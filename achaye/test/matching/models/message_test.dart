@@ -7,14 +7,14 @@ void main() {
     expect(message.content, "abc");
   });
 
-  test("toJson should have content", () {
-    var json = message.toJson();
+  test("toMap should have content", () {
+    var json = message.toMap();
     expect(message.content, json["content"]);
   });
 
-  test("toJson() fromJson() should equal original message", () {
-    var json = message.toJson();
-    var sameMessage = Message.fromJson(json);
+  test("toMap() fromMap() should equal original message", () {
+    var json = message.toMap();
+    var sameMessage = Message.fromMap(json);
     expect(message, sameMessage);
   });
 }
