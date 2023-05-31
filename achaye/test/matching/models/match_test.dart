@@ -14,7 +14,7 @@ void main() {
   });
 
   test("should have appoinment if not null", () {
-    var match = Match.fromMap({
+    var match = Match.fromMap(<String, dynamic>{
       "chatId": "abc",
       "partnerId": "abcs",
       "unreadCount": 5,

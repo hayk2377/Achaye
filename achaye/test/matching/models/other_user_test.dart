@@ -26,7 +26,7 @@ void main() {
   });
 
   test('from Json should have the same name', () {
-    var sameUser = OtherUser.fromMap(const {
+    var sameUser = OtherUser.fromMap(<String, dynamic>{
       "id": "abc",
       "firstName": "abc",
       "lastName": "abc",

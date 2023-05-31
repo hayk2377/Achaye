@@ -12,6 +12,11 @@ void main() {
     expect(message.content, json["content"]);
   });
 
+  test("should accpt <String, dynamic> map", () {
+    Map<String, dynamic> map = {"content": "content", "sentBySelf": true};
+    Message.fromMap(map);
+  });
+
   test("toMap() fromMap() should equal original message", () {
     var json = message.toMap();
     var sameMessage = Message.fromMap(json);
