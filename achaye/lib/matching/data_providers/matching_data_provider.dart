@@ -34,24 +34,34 @@ class MatchingDataProvider {
     return response;
   }
 
+  Future<http.Response> getMatches() async {
+    var response = await http.get(Uri.parse('$baseUrl/matches'),
+        headers: await headerProvider.create());
+
+    return response;
+  }
+
   Future<http.Response> createAppointment(
       String chatId, String appointment) async {
-    var response = await http
-        .post(Uri.parse('$baseUrl/appointments/$chatId/$appointment'));
+    var response = await http.post(
+        Uri.parse(
+          '$baseUrl/appointments/$chatId/',
+        ),
+        body: jsonEncode({"appointment": appointment}));
     return response;
   }
 
   Future<http.Response> deleteAppointment(
       String chatId, String appointment) async {
-    var response = await http
-        .delete(Uri.parse('$baseUrl/appointments/$chatId/$appointment'));
+    var response =
+        await http.delete(Uri.parse('$baseUrl/appointments/$chatId'));
     return response;
   }
 
   Future<http.Response> editAppointment(
       String chatId, String appointment) async {
-    var response =
-        await http.put(Uri.parse('$baseUrl/appointments/$chatId/$appointment'));
+    var response = await http.put(Uri.parse('$baseUrl/appointments/$chatId/'),
+        body: jsonEncode({"appointment": appointment}));
     return response;
   }
 

@@ -1,34 +1,41 @@
 import 'dart:convert';
 import 'package:achaye/account/data_providers/account_data_provider.dart';
 import '../models/user.dart';
+import 'package:achaye/utils/json_header.dart';
 
-class Repository {
+class AccountRepository {
   AccountDataProvider accountDataProvider;
-  Repository(this.accountDataProvider);
+  AccountRepository(this.accountDataProvider);
 
   Future<User> signup(User user) async {
-    var response = await accountDataProvider.create(user.toJson());
-    Map<String, Object> json = jsonDecode(response.body);
-    return User.fromJson(json);
+    var response = await accountDataProvider.create(user.toMap());
+    Map<String, dynamic> json = response.data;
+    return User.fromMap(json);
   }
 
   Future<bool> login(String email, String password) async {
     var response = await accountDataProvider.login(email, password);
-    Map<String, Object> json = jsonDecode(response.body);
-    return (json["error"] != null);
+    Map<String, dynamic> json = jsonDecode(response.body);
+    if (json["error"] == null) {
+      String accessToken = json["accessToken"];
+      await HeaderProvider().storeToken(accessToken);
+      return true;
+    } else {
+      return false;
+    }
   }
 
   Future<bool> logOut() async {
     var response = await accountDataProvider.logOut();
-    Map<String, Object> json = jsonDecode(response.body);
+    Map<String, dynamic> json = jsonDecode(response.body);
     return (json["error"] != null);
   }
 
   Future<User> edit(User user) async {
-    var response = await accountDataProvider.update(user.toJson());
-    Map<String, Object> json = jsonDecode(response.body);
+    var response = await accountDataProvider.update(user.toMap());
+    Map<String, dynamic> json = jsonDecode(response.body);
 
-    return User.fromJson(json);
+    return User.fromMap(json);
   }
 
   Future<bool> delete() async {

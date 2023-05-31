@@ -1,4 +1,6 @@
 import 'package:equatable/equatable.dart';
+import 'dart:io';
+import 'dart:convert';
 
 class User extends Equatable {
   String email;
@@ -11,7 +13,10 @@ class User extends Equatable {
   String birthday;
   String bio;
 
-  String photoUrl;
+  String? photoUrl;
+  String? imageFilePath;
+  String? id;
+
   List<String> religiousPreferences;
   List<String> hobbies;
 
@@ -24,26 +29,29 @@ class User extends Equatable {
     required this.religion,
     required this.birthday,
     required this.bio,
-    required this.photoUrl,
+    this.photoUrl,
+    this.imageFilePath,
     required this.religiousPreferences,
     required this.hobbies,
   });
 
-  User.fromJson(Map<String, dynamic> json)
-      : email = json["email"] as String,
-        password = json["password"] as String,
-        firstName = json["firstName"] as String,
-        lastName = json["lastName"] as String,
-        sex = json["sex"] as String,
-        religion = json["religion"] as String,
-        birthday = json["birthday"] as String,
-        bio = json["bio"] as String,
-        photoUrl = json["photoUrl"] as String,
-        religiousPreferences = List<String>.from(json["religiousPreferences"]),
-        hobbies = List<String>.from(json["hobbies"]);
+  User.fromMap(Map<String, dynamic> map)
+      : id = map["_id"] as String,
+        email = map["email"] as String,
+        password = map["password"] as String,
+        firstName = map["firstName"] as String,
+        lastName = map["lastName"] as String,
+        sex = map["sex"] as String,
+        religion = map["religion"] as String,
+        birthday = map["birthday"] as String,
+        bio = map["bio"] as String,
+        photoUrl = map["photoUrl"],
+        //should not accept imagePath from map
+        religiousPreferences = List<String>.from(map["religiousPreferences"]),
+        hobbies = List<String>.from(map["hobbies"]);
 
-  Map<String, Object> toJson() {
-    Map<String, Object> json = {
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {
       "email": email,
       "password": password,
       "firstName": firstName,
@@ -52,11 +60,13 @@ class User extends Equatable {
       "religion": religion,
       "birthday": birthday,
       "bio": bio,
-      "photoUrl": photoUrl,
+      //no photoUrl, should not ever get modified
+      //id should not ever get modified
+      "imageFilePath": imageFilePath,
       "religiousPreferences": religiousPreferences,
       "hobbies": hobbies,
     };
-    return json;
+    return map;
   }
 
   @override
@@ -70,7 +80,6 @@ class User extends Equatable {
         religion,
         birthday,
         bio,
-        photoUrl,
         ...religiousPreferences,
         ...hobbies
       ];
