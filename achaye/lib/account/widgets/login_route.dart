@@ -1,110 +1,55 @@
+import 'package:achaye/account/validation/bloc/validator_bloc.dart';
+import 'package:achaye/account/widgets/password_block.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-class Login extends StatefulWidget {
+import 'custom_button.dart';
+import 'email_block.dart';
+
+class LoginForm extends StatefulWidget {
+  const LoginForm({super.key});
+
   @override
-  State<Login> createState() => _LoginState();
+  State<LoginForm> createState() => _LoginFormState();
 }
 
-class _LoginState extends State<Login> {
-  bool? _passwordVisible = false;
+class _LoginFormState extends State<LoginForm> {
+  late String email;
+  late String password;
 
-  Widget buildEmailBlock() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text('Email'),
-        const SizedBox(
-          height: 10,
-        ),
-        Container(
-            alignment: Alignment.centerLeft,
-            height: 60,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15), color: Colors.white),
-            child: TextFormField(
-              keyboardType: TextInputType.emailAddress,
-              style: const TextStyle(color: Colors.black),
-              decoration: const InputDecoration(
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.only(top: 7, left: 10),
-              ),
-            ))
-      ],
-    );
-  }
+  @override
+  Widget build(BuildContext context) {
+    final bloc = context.watch<ValidatorBloc>();
+    final state = bloc.state;
 
-  Widget buildPasswordBlock() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text('Password'),
-        const SizedBox(
-          height: 10,
-        ),
-        Container(
-            alignment: Alignment.centerLeft,
-            height: 60,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15), color: Colors.white),
-            child: TextFormField(
-                obscureText: !_passwordVisible!,
-                style: const TextStyle(color: Colors.black),
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  contentPadding: const EdgeInsets.only(top: 14, left: 10),
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      _passwordVisible!
-                          ? Icons.visibility
-                          : Icons.visibility_off,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _passwordVisible = !_passwordVisible!;
-                      });
-                    },
-                  ),
-                )))
-      ],
-    );
-  }
+    void setEmail(String value) {
+      setState(() {
+        email = value;
+      });
+    }
 
-  Widget buildLoginBtn() {
-    return Container(
-      alignment: Alignment.center,
-      child: ElevatedButton(
-          onPressed: () {
-            context.go('/discover');
-          },
-          child: const Text('Login')),
-    );
-  }
+    ;
 
-  Widget buildBackgroundColor() {
-    return Container(
-      height: double.infinity,
-      width: double.infinity,
-      decoration: const BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-            Color(0xFFFC936D),
-            Color(0xFFFB8E67),
-            Color(0xFFFF7F50),
-            Color(0xFFFA6B37)
-          ],
-              stops: [
-            0.1,
-            0.4,
-            0.7,
-            0.9
-          ])),
-    );
-  }
+    void setPassword(String value) {
+      setState(() {
+        password = value;
+      });
+    }
 
-  Widget buildFormBlock() {
+    ;
+
+    void handleSubmit() {
+      print(state);
+      bloc.add(OnSubmitEvent(email, password));
+      print(state);
+      if (state is ValidatorSuccess) {
+        context.go('/discover');
+      } else {
+        print('Try againnnnnnnnnn');
+      }
+    }
+
     return SizedBox(
       height: double.infinity,
       child: SingleChildScrollView(
@@ -125,27 +70,18 @@ class _LoginState extends State<Login> {
           Form(
               child: Column(
             children: [
-              buildEmailBlock(),
+              EmailBlock(email: setEmail),
               const SizedBox(
                 height: 15,
               ),
-              buildPasswordBlock(),
+              PasswordBlock(password: setPassword),
               const SizedBox(
                 height: 10,
               ),
-              buildLoginBtn()
+              CustomButton(onPress: handleSubmit)
             ],
           )),
         ]),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [buildBackgroundColor(), buildFormBlock()],
       ),
     );
   }
