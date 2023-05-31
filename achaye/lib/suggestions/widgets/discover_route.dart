@@ -34,7 +34,7 @@ class MainSwipingWidget extends StatelessWidget {
     final state = bloc.state;
     if (state is SwipingInitial) {
       bloc.add(GiveMeData());
-      return Container();
+      return const Center(child: CupertinoActivityIndicator());
     } else if (state is SwipingLoading) {
       return const Center(child: CupertinoActivityIndicator());
     } else if (state is SwipingError) {
@@ -46,22 +46,50 @@ class MainSwipingWidget extends StatelessWidget {
         ),
       ));
     } else if (state is SwipingLoaded) {
-      return Container(
-        alignment: Alignment.center,
-        margin: EdgeInsets.only(top: 150),
-        child: Dismissible(
-            onDismissed: (direction) {
-              if (direction == DismissDirection.startToEnd) {
-                bloc.add(SwipeRight());
-              } else if (direction == DismissDirection.endToStart) {
-                bloc.add(SwipeLeft());
-              }
-            },
-            key: Key(state.profiles[state.index].id.toString()),
-            child: ProfileCard(
-              profile: (state as SwipingLoaded)
-                  .profiles[(state as SwipingLoaded).index],
-            )),
+      return SingleChildScrollView(
+        child: Container(
+          alignment: Alignment.center,
+          margin: EdgeInsets.only(top: 150),
+          child: Dismissible(
+              onDismissed: (direction) {
+                if (direction == DismissDirection.startToEnd) {
+                  bloc.add(SwipeRight());
+                } else if (direction == DismissDirection.endToStart) {
+                  bloc.add(SwipeLeft());
+                }
+              },
+              key: Key(state.profiles[state.index].id.toString()),
+              child: Column(
+                children: [
+                  ProfileCard(
+                    profile: (state as SwipingLoaded)
+                        .profiles[(state as SwipingLoaded).index],
+                    iconPress: () {
+                      bloc.add(InfoTap());
+                    },
+                  ),
+                  (state.bio == true
+                      ? Container(
+                          alignment: Alignment.center,
+                          width: 340,
+
+                          child: Card(
+                            elevation: 8,
+                            child: Container(
+                              padding: EdgeInsets.all(30),
+                              child: Wrap(
+                                alignment: WrapAlignment.center,
+                                children: [
+                                  Text(state.profiles[state.index].bio!)
+                                ],
+                              ),
+                            ),
+                          ),
+                        )
+                      : Container())
+                ],
+              )),
+        ),
       );
     } else if (state is NoMoreMatches) {
       return Container(
@@ -73,6 +101,6 @@ class MainSwipingWidget extends StatelessWidget {
         ),
       );
     }
-    return Container();
+    throw Exception('State given is not recognized');
   }
 }
