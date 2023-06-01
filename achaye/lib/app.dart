@@ -1,5 +1,7 @@
+import 'package:achaye/account/validation/bloc/signup_validator_bloc.dart';
 import 'package:achaye/account/validation/bloc/validator_bloc.dart';
 import 'package:achaye/account/widgets/profile.dart';
+import 'package:achaye/account/widgets/sign_up_dummy.dart';
 import 'package:achaye/matching/chat_list/chat_bloc/chat_list_bloc.dart';
 import 'package:achaye/matching/end_to_end_chat/bloc/chat_bloc.dart';
 import 'package:achaye/matching/end_to_end_chat/widgets/chat.dart';
@@ -39,6 +41,7 @@ class AchayeApp extends StatelessWidget {
           path: '/preferences',
           builder: (context, state) => PreferenceScreen()),
       GoRoute(path: '/profile', builder: (context, state) => ProfileScreen()),
+      GoRoute(path: '/signup', builder: (context, state) => SignUpAccount(),)
     ]);
     return MaterialApp(
         home: MultiBlocProvider(
@@ -51,7 +54,8 @@ class AchayeApp extends StatelessWidget {
         BlocProvider(
           create: (context) => ChatBloc(),
         ),
-        BlocProvider(create: (context) => PreferencesBloc())
+        BlocProvider(create: (context) => PreferencesBloc()),
+        BlocProvider(create: (context) => SignupValidatorBloc())
       ],
       child: MaterialApp.router(
         routerConfig: _router,

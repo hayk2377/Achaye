@@ -1,6 +1,8 @@
+import 'package:achaye/account/validation/bloc/signup_validator_bloc.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:test/test.dart';
 
 part 'validator_event.dart';
 part 'validator_state.dart';
@@ -8,6 +10,7 @@ part 'validator_state.dart';
 class ValidatorBloc extends Bloc<ValidatorEvent, ValidatorState> {
   ValidatorBloc() : super(ValidatorInitial()) {
     on<RequestPageLoad>(_generatePage);
+    on<AccountCreation>(_goToNextPage);
     on<OnSubmitEvent>(_checkCredentialValidity);
   }
 
@@ -35,5 +38,9 @@ class ValidatorBloc extends Bloc<ValidatorEvent, ValidatorState> {
         error: ValidatorError.None,
         email: TextEditingController(),
         password: TextEditingController()));
+  }
+
+  _goToNextPage(event, emit) {
+    emit(ValidatorAccountCreate());
   }
 }

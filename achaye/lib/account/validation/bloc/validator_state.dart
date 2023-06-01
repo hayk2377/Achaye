@@ -26,4 +26,5 @@ class ValidatorDefault extends ValidatorState {
   List<Object> get props => [email, password, error];
 }
 
+class ValidatorAccountCreate extends ValidatorState{}
 enum ValidatorError { Network, Input, None }

@@ -78,6 +78,7 @@ class ChatBody extends StatelessWidget {
       return Stack(
         children: [
           ListView.builder(
+            controller: state.scrollController,
             itemCount: state.messages.length,
             padding: EdgeInsets.only(top: 10, bottom: 50),
             itemBuilder: (context, index) => Container(

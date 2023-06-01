@@ -9,3 +9,4 @@ abstract class ValidatorEvent extends Equatable {
 
 class RequestPageLoad extends ValidatorEvent {}
 class OnSubmitEvent extends ValidatorEvent {}
+class AccountCreation extends ValidatorEvent{}

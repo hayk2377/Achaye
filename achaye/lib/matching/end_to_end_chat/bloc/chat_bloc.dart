@@ -44,7 +44,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     ];
 
     emit(ChatLoaded(
-        messages: messages, writtenMessage: TextEditingController()));
+        messages: messages, writtenMessage: TextEditingController(), scrollController: ScrollController()));
   }
 
   _sendMessage(event, emit) {
@@ -53,9 +53,16 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       List<Message> newMessages = List.of(_state.messages);
       newMessages
           .add(Message(content: _state.writtenMessage.text, sentBySelf: true));
-
-      emit(ChatLoaded(
-          messages: newMessages, writtenMessage: TextEditingController()));
+      _state.scrollController.animateTo(
+          _state.scrollController.position.maxScrollExtent,
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeInOut);
+      emit(
+        ChatLoaded(
+            messages: newMessages,
+            writtenMessage: TextEditingController(),
+            scrollController: _state.scrollController),
+      );
     }
   }
 
@@ -65,7 +72,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       List<Message> newMessages = List.of(_state.messages);
       newMessages.add(Message(content: "You don'\t say 😏", sentBySelf: false));
 
-      emit(ChatLoaded(messages: newMessages, writtenMessage: _state.writtenMessage));
+      emit(ChatLoaded(
+          messages: newMessages, writtenMessage: _state.writtenMessage, scrollController: _state.scrollController));
     }
   }
 }

@@ -1,3 +1,4 @@
+import 'package:achaye/account/validation/bloc/signup_validator_bloc.dart';
 import 'package:achaye/account/validation/bloc/validator_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,8 @@ class LoginForm extends StatelessWidget {
       listener: (context, state) {
         if (state is ValidatorSuccess) {
           context.go('/discover');
+        } else if (state is ValidatorAccountCreate) {
+          context.go('/signup');
         }
       },
       builder: (context, state) {
@@ -114,7 +117,12 @@ class LoginForm extends StatelessWidget {
                         ),
                         CustomButton(onPress: () {
                           handleSubmit(bloc, state);
-                        })
+                        }),
+                        TextButton(
+                            onPressed: () {
+                              bloc.add(AccountCreation());
+                            },
+                            child: Text("Already have an account?"))
                       ],
                     )),
                   ]),
@@ -123,6 +131,10 @@ class LoginForm extends StatelessWidget {
         } else if (state is ValidatorSuccess) {
           return Center(
             child: Text('Success!'),
+          );
+        } else if (state is ValidatorAccountCreate) {
+          return Center(
+            child: Text("Going to Account Creation please wait...."),
           );
         }
 
