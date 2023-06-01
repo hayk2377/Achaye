@@ -28,8 +28,7 @@ User makeOpposite() {
 
 void main() {
   var random = Random().nextInt(10000);
-  String ip = "192.168.35.46"; //for real device
-  // String ip = "10.0. 2.2"; //for android emulator
+  String ip = "192.168.10.46"; //for android emulato r
 
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   String baseUrl = "http://$ip:3001/api";
@@ -56,15 +55,15 @@ void main() {
 
   test("server connection works", () async {
     var testUrl = '${dp.baseUrl}/hi';
+    print(testUrl);
     await http.get(Uri.parse(testUrl));
   });
 
-  return;
-
   test("user created and logged in", () async {
-    HeaderProvider().storeToken("abc");
-    await accountRp.signup(makeOpposite());
-    await accountRp.signup(makeOpposite());
+    await HeaderProvider().storeToken("abc");
+
+    await accountRp.signup(makeOpposite()); //will be liked
+    await accountRp.signup(makeOpposite()); //will be disliked
     user = await accountRp.signup(user); //replaces
     var loggedIn = await accountRp.login(user.email, user.password);
     expect(loggedIn, true);
@@ -76,91 +75,66 @@ void main() {
       expect(suggestions.length, isNotNull);
     });
 
-    return;
-
     test('like successfully', () async {
-      var resSuggestions = await dp.getSuggestions();
-      var suggestions = jsonDecode(resSuggestions.body);
+      var suggestions = await repo.getSuggestions();
+      var resLike = await repo.like(suggestions[0].id);
 
-      var resLike = await dp.like(suggestions[0]["id"]);
-      var resJson = jsonDecode(resLike.body);
-
-      print(resJson);
-      expect(resJson["liked"], true);
+      expect(resLike, true);
     });
 
     test('dislike successfully', () async {
-      var resSuggestions = await dp.getSuggestions();
-      var suggestions = jsonDecode(resSuggestions.body);
-
-      var resLike = await dp.dislike(suggestions[0]["id"]);
-      var resJson = jsonDecode(resLike.body);
-
-      print(resJson);
-      expect(resJson["liked"], true);
+      var suggestions = await repo.getSuggestions();
+      var resDislike = await repo.dislike(suggestions[0].id);
+      expect(resDislike, true);
     });
-    return;
   });
 
-  return;
   group('chats', () {
     test('match successfully', () async {
       var partner = await accountRp.signup(makeOpposite());
-      await dp.like(partner.id as String);
+      await repo.like(partner.id as String);
 
       await accountRp.login(partner.email, partner.password);
-      var result = await dp.like(user.id as String);
-
-      var json = jsonDecode(result.body);
-      print("----------------");
-      print(json);
-
-      expect(json["matched"], true);
+      await repo.like(user.id as String);
       await accountRp.login(user.email, user.password);
     });
-
     test('get matches has length', () async {
-      return;
-      var res = await dp.getMatches();
-      var json = jsonDecode(res.body);
-      expect(json.length, isNotNull);
+      var matches = await repo.getMatches();
+      expect(matches.length, isNotNull);
     });
 
     test('chat id should not be null', () async {
-      return;
-      var res = await dp.getMatches();
-      var matches = jsonDecode(res.body);
-      String chatId = matches[0]["chatId"];
+      var matches = await repo.getMatches();
+      String chatId = matches[0].chatId;
       expect(chatId, isNotNull);
     });
-    test('create appointment should work', () async {
-      var res = await dp.getMatches();
-      var matches = jsonDecode(res.body);
-      String chatId = matches[0]["chatId"];
 
-      var resAppointment = await dp.createAppointment(chatId, "abc");
-      var appointmentJson = jsonDecode(resAppointment.body);
-      expect(appointmentJson["appointment"], "abc");
+    test('create appointment should work', () async {
+      String chatId = (await repo.getMatches())[0].chatId;
+
+      var isSuccessful = await repo.createAppointment(chatId, "abc");
+      expect(isSuccessful, true);
     });
 
     test('update appointment should work', () async {
-      var res = await dp.getMatches();
-      var matches = jsonDecode(res.body);
-      String chatId = matches[0]["chatId"];
+      String chatId = (await repo.getMatches())[0].chatId;
 
-      var resAppointment = await dp.editAppointment(chatId, "cde");
-      var appointmentJson = jsonDecode(resAppointment.body);
-      expect(appointmentJson["appointment"], "cde");
+      var isSuccessful = await repo.editAppointment(chatId, "cde");
+      expect(isSuccessful, true);
     });
 
     test('delete appointment should work', () async {
-      var res = await dp.getMatches();
-      var matches = jsonDecode(res.body);
-      String chatId = matches[0]["chatId"];
+      String chatId = (await repo.getMatches())[0].chatId;
 
-      var resAppointment = await dp.deleteAppointment(chatId);
-      var appointmentJson = jsonDecode(resAppointment.body);
-      expect(appointmentJson["appointment"], null);
+      var isSuccessful = await repo.deleteAppointment(chatId, "abc");
+      expect(isSuccessful, true);
+    });
+
+    test('web sockets should not error', () async {
+      String chatId = (await repo.getMatches())[0].chatId;
+
+      var send = repo.enterChat(
+          chatId: chatId, onMessage: (String message) => print(message));
     });
   });
 }

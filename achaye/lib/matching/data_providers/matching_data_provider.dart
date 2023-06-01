@@ -11,7 +11,7 @@ class MatchingDataProvider {
   MatchingDataProvider({required this.baseUrl, required this.headerProvider}) {
     var uri = Uri.parse(baseUrl);
     var hostName = uri.host;
-    webSocketBaseUrl = "ws://$hostName/";
+    webSocketBaseUrl = "ws://$hostName:3000/";
   }
 
   Future<http.Response> getSuggestions() async {
@@ -76,6 +76,7 @@ class MatchingDataProvider {
   }
 
   WebSocketChannel getWebSocketChannel(chatId) {
+    print(webSocketBaseUrl);
     var channel =
         WebSocketChannel.connect(Uri.parse('$webSocketBaseUrl/$chatId'));
     return channel;

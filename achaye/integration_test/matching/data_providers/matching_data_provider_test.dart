@@ -28,7 +28,7 @@ User makeOpposite() {
 
 void main() {
   var random = Random().nextInt(10000);
-  String ip = "192.168.50.46"; //for real device
+  String ip = "192.168.10.46"; //for real device
   // String ip = "10.0. 2.2"; //for android emulator
 
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -157,6 +157,14 @@ void main() {
       var resAppointment = await dp.deleteAppointment(chatId);
       var appointmentJson = jsonDecode(resAppointment.body);
       expect(appointmentJson["appointment"], null);
+    });
+
+    test('websocket channel should not error', () async {
+      var res = await dp.getMatches();
+      var matches = jsonDecode(res.body);
+      String chatId = matches[0]["chatId"];
+
+      var channel = dp.getWebSocketChannel(chatId);
     });
   });
 }

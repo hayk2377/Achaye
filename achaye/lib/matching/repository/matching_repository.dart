@@ -1,6 +1,7 @@
 import 'dart:convert';
 import '../data_providers/matching_data_provider.dart';
 import '../models/other_user.dart';
+import '../models/match.dart';
 
 class MatchingRepository {
   MatchingDataProvider matchingDataProvider;
@@ -8,9 +9,12 @@ class MatchingRepository {
 
   Future<List<OtherUser>> getSuggestions() async {
     var response = await matchingDataProvider.getSuggestions();
-    List<Map<String, dynamic>> suggestions = jsonDecode(response.body);
-    List<OtherUser> users =
-        suggestions.map((suggested) => OtherUser.fromMap(suggested)).toList();
+    List<dynamic> suggestions = jsonDecode(response.body);
+
+    List<OtherUser> users = suggestions.map((suggested) {
+      var mapifized = suggested as Map<String, dynamic>;
+      return OtherUser.fromMap(mapifized);
+    }).toList();
     return users;
   }
 
@@ -22,6 +26,17 @@ class MatchingRepository {
   Future<bool> dislike(String dislikedId) async {
     var response = await matchingDataProvider.like(dislikedId);
     return response.statusCode == 200;
+  }
+
+  Future<List<Match>> getMatches() async {
+    var response = await matchingDataProvider.getMatches();
+    List<dynamic> matchResults = jsonDecode(response.body);
+
+    List<Match> matches = matchResults.map((matchResult) {
+      var mapifized = matchResult as Map<String, dynamic>;
+      return Match.fromMap(mapifized);
+    }).toList();
+    return matches;
   }
 
   Future<bool> createAppointment(String chatId, String appointment) async {
