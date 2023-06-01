@@ -22,24 +22,40 @@ class AchayeApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GoRouter _router = GoRouter(routes: [
-      GoRoute(path: '/s', builder: ((context, state) => Login())),
-      GoRoute(path: '/discover', builder: (context, state) => Discover(),),
-      GoRoute(path: '/chats', builder: (context, state) => ChatScreen(),),
-      GoRoute(path: '/chat_list', builder: (context, state) => ChatList(),),
-      GoRoute(path: '/preferences', builder: (context, state) => PreferenceScreen()),
-      GoRoute(path: '/', builder: (context, state) => ProfileScreen()),
-
+      GoRoute(path: '/', builder: ((context, state) => Login())),
+      GoRoute(
+        path: '/discover',
+        builder: (context, state) => Discover(),
+      ),
+      GoRoute(
+        path: '/chats',
+        builder: (context, state) => ChatScreen(),
+      ),
+      GoRoute(
+        path: '/chat_list',
+        builder: (context, state) => ChatList(),
+      ),
+      GoRoute(
+          path: '/preferences',
+          builder: (context, state) => PreferenceScreen()),
+      GoRoute(path: '/profile', builder: (context, state) => ProfileScreen()),
     ]);
     return MaterialApp(
-      home: MultiBlocProvider(providers: [
+        home: MultiBlocProvider(
+      providers: [
         BlocProvider(create: (context) => SwipingBloc()),
         BlocProvider(create: (context) => ChatListBloc()),
-        BlocProvider(create: (context) => ValidatorBloc(),),
-        BlocProvider(create: (context) => ChatBloc(),),
+        BlocProvider(
+          create: (context) => ValidatorBloc(),
+        ),
+        BlocProvider(
+          create: (context) => ChatBloc(),
+        ),
         BlocProvider(create: (context) => PreferencesBloc())
-      ], 
-      child: MaterialApp.router(routerConfig: _router,),
-      )
-    );
+      ],
+      child: MaterialApp.router(
+        routerConfig: _router,
+      ),
+    ));
   }
 }

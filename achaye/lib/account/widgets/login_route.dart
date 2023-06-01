@@ -16,6 +16,7 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = context.read<ValidatorBloc>();
+    bloc.add(RequestPageLoad());
 
     return BlocConsumer<ValidatorBloc, ValidatorState>(
       listener: (context, state) {
