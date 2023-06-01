@@ -14,12 +14,11 @@ class SwipingLoading extends SwipingState {}
 class SwipingError extends SwipingState {}
 
 class SwipingLoaded extends SwipingState {
-  final List<Profile> profiles;
+  final List<OtherUser> profiles;
   final int index;
   final bool bio;
-  final bool options;
 
-  const SwipingLoaded(this.profiles, this.index, this.bio, this.options);
+  const SwipingLoaded(this.profiles, this.index, this.bio);
 
   @override
   List<Object?> get props => [profiles, index, bio];

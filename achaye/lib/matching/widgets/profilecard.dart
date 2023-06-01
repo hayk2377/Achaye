@@ -1,14 +1,14 @@
+import 'package:achaye/matching/models/other_user.dart';
 import 'package:flutter/material.dart';
-import '../models/profile.dart';
 
 class ProfileCard extends StatelessWidget {
-  const ProfileCard({Key? key, required this.profile, required this.iconPress}) : super(key: key);
-  final Profile profile;
+  const ProfileCard({Key? key, required this.profile, required this.iconPress})
+      : super(key: key);
+  final OtherUser profile;
   final VoidCallback iconPress;
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       height: 580,
       width: 340,
@@ -18,8 +18,8 @@ class ProfileCard extends StatelessWidget {
           Positioned.fill(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.asset(
-                profile.image!,
+              child: Image.network(
+                profile.photoUrl,
                 fit: BoxFit.fitHeight,
               ),
             ),
@@ -51,7 +51,7 @@ class ProfileCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          profile.name!,
+                          profile.firstName,
                           style: const TextStyle(
                             fontFamily: 'Nunito',
                             fontWeight: FontWeight.w800,
@@ -59,7 +59,7 @@ class ProfileCard extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          profile.distance!,
+                          profile.age.toString(),
                           style: const TextStyle(
                             fontFamily: 'Nunito',
                             fontWeight: FontWeight.w400,

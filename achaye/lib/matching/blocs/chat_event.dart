@@ -7,8 +7,8 @@ abstract class ChatEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GiveMeData extends ChatEvent{}
+class GiveMeChatData extends ChatEvent {}
 
-class TextArrival extends ChatEvent{}
+class TextArrival extends ChatEvent {}
 
-class TextSent extends ChatEvent{}
+class TextSent extends ChatEvent {}

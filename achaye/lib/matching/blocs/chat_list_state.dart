@@ -1,19 +1,19 @@
 part of 'chat_list_bloc.dart';
 
-abstract class ChatState extends Equatable {
-  const ChatState();
+abstract class ChatListState extends Equatable {
+  const ChatListState();
 
   @override
   List<Object> get props => [];
 }
 
-class ChatListInitial extends ChatState {}
+class ChatListInitial extends ChatListState {}
 
-class ChatListLoading extends ChatState {}
+class ChatListLoading extends ChatListState {}
 
-class ChatListError extends ChatState {}
+class ChatListError extends ChatListState {}
 
-class ChatListLoaded extends ChatState {
+class ChatListLoaded extends ChatListState {
   final List<ProfileLog> data;
 
   const ChatListLoaded(this.data);
@@ -21,7 +21,7 @@ class ChatListLoaded extends ChatState {
   List<Object> get props => data;
 }
 
-class ReOrderMessages extends ChatState {
+class ReOrderMessages extends ChatListState {
   final List<ProfileLog> data;
 
   ReOrderMessages(this.data);
@@ -33,4 +33,4 @@ class ReOrderMessages extends ChatState {
   }
 }
 
-class NoMessages extends ChatState {}
+class NoMessages extends ChatListState {}

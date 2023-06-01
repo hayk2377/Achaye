@@ -15,4 +15,4 @@ class SwipeLeft extends SwipingEvent {}
 
 class InfoTap extends SwipingEvent {}
 
-class MoreOptionsTap extends SwipingEvent{}
+class MoreOptionsTap extends SwipingEvent {}

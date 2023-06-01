@@ -1,14 +1,9 @@
-import '../../suggestions/models/profile.dart';
-
-class ProfileLog extends Profile {
+class ProfileLog {
+  String? name;
+  int? id;
+  String? image;
   String? recentTyped;
   DateTime? time;
 
-  ProfileLog(
-      {this.recentTyped,
-       this.time,
-      super.name,
-      super.id,
-      super.image});
-
+  ProfileLog({this.recentTyped, this.time, this.name, this.id, this.image});
 }

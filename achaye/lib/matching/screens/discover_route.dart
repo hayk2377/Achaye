@@ -1,11 +1,12 @@
-import 'package:achaye/suggestions/widgets/profilecard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../swiping/bloc/swiping_bloc.dart';
+import 'package:achaye/matching/blocs/swiping_bloc.dart';
+import 'package:achaye/matching/widgets/profilecard.dart';
+
 import 'package:flutter/material.dart';
 
-import 'discover_outline.dart';
+import '../widgets/discover_outline.dart';
 
 class Discover extends StatelessWidget {
   @override

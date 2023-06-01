@@ -25,6 +25,10 @@ class AccountRepository {
     }
   }
 
+  Future<bool> isLoggedIn() async {
+    return await accountDataProvider.isLoggedIn();
+  }
+
   Future<bool> logOut() async {
     var response = await accountDataProvider.logOut();
     Map<String, dynamic> json = jsonDecode(response.body);

@@ -1,5 +1,4 @@
-import 'package:achaye/account/validation/bloc/signup_validator_bloc.dart';
-import 'package:achaye/account/validation/bloc/validator_bloc.dart';
+import 'package:achaye/account/blocs/validator_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,6 +22,7 @@ class LoginForm extends StatelessWidget {
       listener: (context, state) {
         if (state is ValidatorSuccess) {
           context.go('/discover');
+          bloc.add(LogoutEvent());
         } else if (state is ValidatorAccountCreate) {
           context.go('/signup');
         }

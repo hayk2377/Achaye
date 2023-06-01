@@ -39,7 +39,13 @@ class AccountDataProvider {
         Uri.parse('$baseUrl/users/logged-in'),
         headers: await headerProvider.create());
 
+    await headerProvider.deleteToken();
     return response;
+  }
+
+  Future<bool> isLoggedIn() async {
+    String token = await headerProvider.getStoredToken();
+    return token != "";
   }
 
   Future<http.Response> update(Map<String, dynamic> profileJson) async {

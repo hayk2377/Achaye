@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'hobby_selection.dart';
+import '../widgets/hobby_selection.dart';
 
 class PreferenceScreen extends StatelessWidget {
   @override
@@ -10,7 +10,9 @@ class PreferenceScreen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text("Edit Preferences"),
-          leading: BackButton(onPressed: () => context.pop(),),
+          leading: BackButton(
+            onPressed: () => context.pop(),
+          ),
           backgroundColor: Color(0xFFFF7F50),
         ),
         body: SingleChildScrollView(
@@ -140,7 +142,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
   }
 }
 
-class MultiSelectChip extends StatelessWidget{
+class MultiSelectChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(

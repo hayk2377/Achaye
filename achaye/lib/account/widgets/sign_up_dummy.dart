@@ -1,8 +1,9 @@
-import 'package:achaye/account/validation/bloc/signup_validator_bloc.dart';
 import 'package:achaye/account/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+
+import '../blocs/signup_validator_bloc.dart';
 
 class SignUpAccount extends StatelessWidget {
   @override
@@ -46,6 +47,9 @@ class SignUpAccountPage extends StatelessWidget {
         } else if (state is SignupValidatorDefault) {
           return Column(
             children: [
+              (state.error == SignupValidatorError.Input
+                  ? Text("Account already exists")
+                  : Container()),
               Form(
                   child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

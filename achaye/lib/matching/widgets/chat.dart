@@ -1,22 +1,18 @@
 import 'package:achaye/common/options_dialog.dart';
-import 'package:achaye/matching/end_to_end_chat/bloc/chat_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
+import 'package:achaye/matching/blocs/chat_bloc.dart';
 
 class ChatScreen extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Color(0xFFFF7F50),
-          actions: [
-            OptionsDialog()
-          ],
+          actions: [OptionsDialog()],
           flexibleSpace: SafeArea(
               child: Container(
             padding: EdgeInsets.only(right: 16),
@@ -67,7 +63,7 @@ class ChatBody extends StatelessWidget {
     final state = bloc.state;
 
     if (state is ChatInitial) {
-      bloc.add(GiveMeData());
+      bloc.add(GiveMeChatData());
       return Container();
     } else if (state is ChatLoading) {
       return Align(
@@ -78,7 +74,6 @@ class ChatBody extends StatelessWidget {
       return Stack(
         children: [
           ListView.builder(
-            controller: state.scrollController,
             itemCount: state.messages.length,
             padding: EdgeInsets.only(top: 10, bottom: 50),
             itemBuilder: (context, index) => Container(

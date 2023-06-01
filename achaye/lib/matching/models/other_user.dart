@@ -11,7 +11,8 @@ class OtherUser extends Equatable {
   String bio;
 
   List<String> hobbies;
-  String photoUrl;
+  String photoUrl =
+      "https://images.unsplash.com/photo-1610509528015-e4c30d95a5cf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8ZmVtYWxlJTIwbW9kZWx8ZW58MHx8MHx8fDA%3D&w=1000&q=80";
 
   OtherUser({
     required this.id,
@@ -37,7 +38,9 @@ class OtherUser extends Equatable {
         religion = json["religion"] as String,
         bio = json["bio"] as String,
         //
-        photoUrl = json["photoUrl"] as String,
+        // photoUrl = json["photoUrl"] as String,
+        photoUrl =
+            "https://images.unsplash.com/photo-1610509528015-e4c30d95a5cf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8ZmVtYWxlJTIwbW9kZWx8ZW58MHx8MHx8fDA%3D&w=1000&q=80",
         hobbies = List<String>.from(json["hobbies"]);
 
   Map<String, Object> toMap() {

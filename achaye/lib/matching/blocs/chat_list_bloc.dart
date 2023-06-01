@@ -1,12 +1,12 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../models/profilelog.dart';
+import '../models/profilelog.dart';
 
 part 'chat_list_event.dart';
 part 'chat_list_state.dart';
 
-class ChatListBloc extends Bloc<ChatEvent, ChatState> {
+class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
   ChatListBloc() : super(ChatListInitial()) {
     on<FetchData>(_fetchData);
     on<NewTextArrival>(_reorderChats);
@@ -65,8 +65,6 @@ class ChatListBloc extends Bloc<ChatEvent, ChatState> {
       duplicateList.sort((a, b) => a.time!.millisecondsSinceEpoch
           .compareTo(b.time!.millisecondsSinceEpoch));
       emit(ChatListLoaded(duplicateList.reversed.toList()));
-
     }
   }
 }
-

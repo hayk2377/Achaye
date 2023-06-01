@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../chat_bloc/chat_list_bloc.dart';
+import 'package:achaye/matching/blocs/chat_list_bloc.dart';
 
 class ChatList extends StatelessWidget {
   ChatList({super.key});
@@ -15,9 +15,7 @@ class ChatList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [
-            OptionsDialog()
-          ],
+        actions: [OptionsDialog()],
         leading: Builder(builder: (BuildContext context) {
           return BackButton(
             onPressed: () {

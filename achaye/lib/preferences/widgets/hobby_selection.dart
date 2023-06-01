@@ -1,9 +1,8 @@
+import 'package:achaye/preferences/blocs/preferences_bloc.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../preferences_bloc/preferences_bloc.dart';
-
 
 class HobbySelection extends StatelessWidget {
   final List _hobby_list = [

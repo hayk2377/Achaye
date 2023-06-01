@@ -27,4 +27,8 @@ class HeaderProvider {
     var prefs = await SharedPreferences.getInstance();
     prefs.setString("accessToken", accessToken);
   }
+
+  Future<void> deleteToken() async {
+    await storeToken("");
+  }
 }
