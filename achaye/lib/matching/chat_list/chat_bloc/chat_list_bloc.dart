@@ -1,20 +1,19 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:intl/intl.dart';
 
 import '../../models/profilelog.dart';
 
-part 'chat_event.dart';
-part 'chat_state.dart';
+part 'chat_list_event.dart';
+part 'chat_list_state.dart';
 
-class ChatBloc extends Bloc<ChatEvent, ChatState> {
-  ChatBloc() : super(ChatInitial()) {
+class ChatListBloc extends Bloc<ChatEvent, ChatState> {
+  ChatListBloc() : super(ChatListInitial()) {
     on<FetchData>(_fetchData);
     on<NewTextArrival>(_reorderChats);
   }
 
   _fetchData(event, emit) async {
-    emit(ChatLoading());
+    emit(ChatListLoading());
 
     await Future.delayed(Duration(seconds: 2));
 
@@ -47,12 +46,12 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     chatActivity.sort((a, b) => a.time!.millisecondsSinceEpoch
         .compareTo(b.time!.millisecondsSinceEpoch));
 
-    emit(ChatLoaded(chatActivity.reversed.toList()));
+    emit(ChatListLoaded(chatActivity.reversed.toList()));
   }
 
   _reorderChats(event, emit) async {
-    if (state is ChatLoaded) {
-      final _state = state as ChatLoaded;
+    if (state is ChatListLoaded) {
+      final _state = state as ChatListLoaded;
 
       List<ProfileLog> duplicateList = List.of(_state.data);
       duplicateList.add(
@@ -65,8 +64,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       );
       duplicateList.sort((a, b) => a.time!.millisecondsSinceEpoch
           .compareTo(b.time!.millisecondsSinceEpoch));
-      final oldList = _state.data;
-      emit(ChatLoaded(duplicateList.reversed.toList()));
+      emit(ChatListLoaded(duplicateList.reversed.toList()));
 
     }
   }

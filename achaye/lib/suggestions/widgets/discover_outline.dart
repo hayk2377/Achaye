@@ -1,3 +1,4 @@
+import 'package:achaye/common/options_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -40,7 +41,8 @@ class BackgroundCurveWidget extends StatelessWidget {
                           },
                           icon: const Icon(Icons.chat_bubble_outline_rounded,
                               color: Colors.white, size: 36)),
-                      IconButton(onPressed: (){}, icon: const Icon(Icons.person, color: Colors.white, size: 36,),)
+                        
+                      OptionsDialog(),
                     ],
                   ))
             ],

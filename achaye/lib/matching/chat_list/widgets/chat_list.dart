@@ -1,12 +1,12 @@
+import 'package:achaye/common/options_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:bloc/bloc.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../chat_bloc/chat_bloc.dart';
+import '../chat_bloc/chat_list_bloc.dart';
 
 class ChatList extends StatelessWidget {
   ChatList({super.key});
@@ -15,6 +15,9 @@ class ChatList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+            OptionsDialog()
+          ],
         leading: Builder(builder: (BuildContext context) {
           return BackButton(
             onPressed: () {
@@ -25,9 +28,8 @@ class ChatList extends StatelessWidget {
         backgroundColor: Color(0xFFFF7F50),
         elevation: 0,
         title: Row(children: const [
-          Expanded(child: Text("CHATS")),
+          Expanded(child: Text("Chats")),
         ]),
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.person))],
       ),
       body: Chats(),
     );
@@ -35,7 +37,6 @@ class ChatList extends StatelessWidget {
 }
 
 class Chats extends StatelessWidget {
-
   String compressText(String text) {
     var compressedText = "";
 
@@ -49,31 +50,24 @@ class Chats extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = context.watch<ChatBloc>();
+    final bloc = context.watch<ChatListBloc>();
     final state = bloc.state;
 
-    if (state is ChatInitial) {
+    if (state is ChatListInitial) {
       bloc.add(FetchData());
       return Container();
-    } else if (state is ChatLoading) {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          CupertinoActivityIndicator(
-            radius: 40,
-            color: Colors.orange,
-          )
-        ],
+    } else if (state is ChatListLoading) {
+      return Align(
+        alignment: Alignment.center,
+        child: CupertinoActivityIndicator(),
       );
-    } else if (state is ChatLoaded) {
+    } else if (state is ChatListLoaded) {
       final data = state.data;
       return ListView(
           children: data.map((e) {
         return InkWell(
           onTap: () {
-            bloc.add(NewTextArrival());
+            context.go('/chats');
           },
           child: Container(
             padding: const EdgeInsets.all(10),
@@ -120,7 +114,7 @@ class Chats extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.centerRight,
                     child: Text(
-                      DateFormat('yyyy/MM/d hh:mm a').format(e.time!),
+                      DateFormat('hh:mm a').format(e.time!),
                       style: const TextStyle(
                         fontSize: 12,
                       ),
@@ -131,7 +125,6 @@ class Chats extends StatelessWidget {
             ),
           ),
         );
-        ;
       }).toList());
     }
     return Container();

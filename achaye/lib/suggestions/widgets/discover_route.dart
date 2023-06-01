@@ -37,9 +37,15 @@ class MainSwipingWidget extends StatelessWidget {
     final state = bloc.state;
     if (state is SwipingInitial) {
       bloc.add(GiveMeData());
-      return const Center(child: CupertinoActivityIndicator());
+      return Align(
+        alignment: Alignment.bottomCenter,
+        child: CupertinoActivityIndicator(),
+      );
     } else if (state is SwipingLoading) {
-      return const Center(child: CupertinoActivityIndicator());
+      return Align(
+        alignment: Alignment.bottomCenter,
+        child: CupertinoActivityIndicator(),
+      );
     } else if (state is SwipingError) {
       return Center(
           child: TextButton(
@@ -72,25 +78,24 @@ class MainSwipingWidget extends StatelessWidget {
                 ),
                 SingleChildScrollView(
                   child: (state.bio == true
-                    ? Container(
-                        alignment: Alignment.center,
-                        width: 340,
-                        child: Card(
-                          elevation: 8,
-                          child: Container(
-                            padding: EdgeInsets.all(30),
-                            child: Wrap(
-                              alignment: WrapAlignment.center,
-                              children: [
-                                Text(state.profiles[state.index].bio!)
-                              ],
+                      ? Container(
+                          alignment: Alignment.center,
+                          width: 340,
+                          child: Card(
+                            elevation: 8,
+                            child: Container(
+                              padding: EdgeInsets.all(30),
+                              child: Wrap(
+                                alignment: WrapAlignment.center,
+                                children: [
+                                  Text(state.profiles[state.index].bio!)
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      )
-                    : Container()) ,
+                        )
+                      : Container()),
                 ),
-                
               ],
             )),
       );

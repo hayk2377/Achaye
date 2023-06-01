@@ -1,12 +1,10 @@
 import 'package:achaye/account/validation/bloc/validator_bloc.dart';
-import 'package:achaye/account/widgets/password_block.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import 'custom_button.dart';
-import 'email_block.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({super.key});
@@ -18,11 +16,9 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = context.read<ValidatorBloc>();
-    final state = bloc.state;
 
     return BlocConsumer<ValidatorBloc, ValidatorState>(
       listener: (context, state) {
-        print(state);
         if (state is ValidatorSuccess) {
           context.go('/discover');
         }
