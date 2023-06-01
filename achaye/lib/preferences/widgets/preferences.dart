@@ -1,7 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import 'hobby_selection.dart';
 
@@ -10,8 +9,8 @@ class PreferenceScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Preferences"),
-          leading: BackButton(),
+          title: Text("Edit Preferences"),
+          leading: BackButton(onPressed: () => context.pop(),),
           backgroundColor: Color(0xFFFF7F50),
         ),
         body: SingleChildScrollView(

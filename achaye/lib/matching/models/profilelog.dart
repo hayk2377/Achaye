@@ -11,6 +11,4 @@ class ProfileLog extends Profile {
       super.id,
       super.image});
 
-  @override
-  List<Object?> get props => [recentTyped, time, name, id, image];
 }

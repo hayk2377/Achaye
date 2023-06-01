@@ -1,4 +1,4 @@
-part of 'chat_bloc.dart';
+part of 'chat_list_bloc.dart';
 
 abstract class ChatState extends Equatable {
   const ChatState();
@@ -7,22 +7,22 @@ abstract class ChatState extends Equatable {
   List<Object> get props => [];
 }
 
-class ChatInitial extends ChatState {}
+class ChatListInitial extends ChatState {}
 
-class ChatLoading extends ChatState {}
+class ChatListLoading extends ChatState {}
 
-class ChatError extends ChatState {}
+class ChatListError extends ChatState {}
 
-class ChatLoaded extends ChatState {
+class ChatListLoaded extends ChatState {
   final List<ProfileLog> data;
 
-  const ChatLoaded(this.data);
+  const ChatListLoaded(this.data);
   @override
   List<Object> get props => data;
 }
 
 class ReOrderMessages extends ChatState {
-  List<ProfileLog> data;
+  final List<ProfileLog> data;
 
   ReOrderMessages(this.data);
   @override

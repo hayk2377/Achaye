@@ -6,7 +6,7 @@ import '../preferences_bloc/preferences_bloc.dart';
 
 
 class HobbySelection extends StatelessWidget {
-  List _hobby_list = [
+  final List _hobby_list = [
     '⚽ Sports',
     '🎆 Anime',
     '📺 Series',
