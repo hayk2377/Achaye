@@ -9,9 +9,22 @@ abstract class PreferencesEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class PreferencesInitialEvent extends PreferencesEvent {}
+
 class PreferencesSelectionEvent extends PreferencesEvent {
-  String selectedValue;
+  final String selectedValue;
   PreferencesSelectionEvent(this.selectedValue);
+
+   @override
+  List<Object> get props => [selectedValue];
 }
 
-class PreferencesInitialEvent extends PreferencesEvent {}
+class ReligionSelectionEvent extends PreferencesEvent {
+  final String selectedReligon;
+
+  ReligionSelectionEvent(this.selectedReligon);
+
+   @override
+  List<Object> get props => [selectedReligon];
+
+}

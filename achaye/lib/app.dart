@@ -8,6 +8,8 @@ import 'package:achaye/account/account.dart';
 import 'package:achaye/matching/matching.dart';
 import 'package:achaye/preferences/preferences.dart';
 
+import 'account/blocs/edit_profile_bloc.dart';
+import 'account/widgets/edit_profile.dart';
 import 'account/widgets/profile.dart';
 import 'matching/widgets/chat.dart';
 
@@ -49,6 +51,10 @@ class AchayeApp extends StatelessWidget {
     GoRoute(
         path: '/preferences', builder: (context, state) => PreferenceScreen()),
     GoRoute(path: '/profile', builder: (context, state) => ProfileScreen()),
+    GoRoute(
+      path: '/editprofile',
+      builder: (context, state) => EditProfile(),
+    )
   ]);
 
   @override
@@ -68,13 +74,13 @@ class AchayeApp extends StatelessWidget {
         child: MaterialApp(
             home: MultiBlocProvider(
           providers: [
-            BlocProvider(create: (context) => 
-                  SwipingBloc(context.read<MatchingRepository>()
-
-            )),
-            BlocProvider(create: (context) => SignupValidatorBloc(
-              context.read<AccountRepository>(),
-            )),
+            BlocProvider(
+                create: (context) =>
+                    SwipingBloc(context.read<MatchingRepository>())),
+            BlocProvider(
+                create: (context) => SignupValidatorBloc(
+                      context.read<AccountRepository>(),
+                    )),
             BlocProvider(create: (context) => ChatListBloc()),
             BlocProvider(
               create: (context) =>
@@ -83,7 +89,9 @@ class AchayeApp extends StatelessWidget {
             BlocProvider(
               create: (context) => ChatBloc(),
             ),
-            BlocProvider(create: (context) => PreferencesBloc())
+            BlocProvider(create: (context) => PreferencesBloc()),
+            BlocProvider(create: (context) => EditProfileBloc())
+
           ],
           child: MaterialApp.router(
             routerConfig: _router,

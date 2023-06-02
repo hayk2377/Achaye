@@ -1,8 +1,10 @@
+import 'package:achaye/preferences/blocs/preferences_bloc.dart';
+import 'package:achaye/preferences/widgets/hobby_selection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../widgets/hobby_selection.dart';
 
 class PreferenceScreen extends StatelessWidget {
   @override
@@ -98,47 +100,59 @@ class _CustomDropDownState extends State<CustomDropDown> {
     'Other',
     'I don\'t mind'
   ];
-  String _preferences = "Orthodox";
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 300,
-      margin: EdgeInsets.only(left: 20),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-            border: Border.all(color: Colors.orange, width: 1),
-            borderRadius: BorderRadius.circular(5)),
-        child: DropdownButtonHideUnderline(
-          child: ButtonTheme(
-            alignedDropdown: true,
-            child: DropdownButton(
-              items: _religion_preferences.map((value) {
-                return DropdownMenuItem(
-                  child: Text(
-                    value,
-                    style: TextStyle(),
-                  ),
-                  value: value,
-                );
-              }).toList(),
-              value: _preferences,
-              onChanged: (String? value) {
-                if (value != null) {
-                  setState(() {
-                    _preferences = value;
-                  });
-                }
-              },
-              isExpanded: true,
-              iconSize: 32,
-              underline: null,
-              iconEnabledColor: Colors.black,
+    final bloc = context.watch<PreferencesBloc>();
+    final state = bloc.state;
+
+    if (state is PreferencesInitial) {
+      bloc.add(PreferencesInitialEvent());
+      return Align(
+        alignment: Alignment.center,
+        child: CircularProgressIndicator(
+          color: Color(0xFFFF7F50),
+        ),
+      );
+    } else if (state is PreferencesSelection) {
+      String _preferences = state.religionChoice;
+      return Container(
+        width: 300,
+        margin: EdgeInsets.only(left: 20),
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+              border: Border.all(color: Colors.orange, width: 1),
+              borderRadius: BorderRadius.circular(5)),
+          child: DropdownButtonHideUnderline(
+            child: ButtonTheme(
+              alignedDropdown: true,
+              child: DropdownButton(
+                items: _religion_preferences.map((value) {
+                  return DropdownMenuItem(
+                    child: Text(
+                      value,
+                      style: TextStyle(),
+                    ),
+                    value: value,
+                  );
+                }).toList(),
+                value: _preferences,
+                onChanged: (String? value) {
+                  if (value != null) {
+                    bloc.add(ReligionSelectionEvent(value));
+                  }
+                },
+                isExpanded: true,
+                iconSize: 32,
+                underline: null,
+                iconEnabledColor: Colors.black,
+              ),
             ),
           ),
         ),
-      ),
-    );
+      );
+    }
+    throw Exception("Unhandled state");
   }
 }
 

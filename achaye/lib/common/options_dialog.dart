@@ -1,6 +1,4 @@
-import 'package:achaye/account/account.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class OptionsDialog extends StatelessWidget {
@@ -8,7 +6,6 @@ class OptionsDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = context.watch<ValidatorBloc>();
     return PopupMenuButton<String>(
       color: Colors.white,
       onSelected: (value) {
@@ -21,12 +18,8 @@ class OptionsDialog extends StatelessWidget {
             value: '/preferences',
           ),
           PopupMenuItem<String>(
-            child: Text("Edit Profile"),
+            child: Text("Profile"),
             value: '/profile',
-          ),
-          PopupMenuItem<String>(
-            child: Text("Logout"),
-            value: '/',
           ),
         ];
       },

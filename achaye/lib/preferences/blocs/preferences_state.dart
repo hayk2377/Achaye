@@ -11,9 +11,11 @@ class PreferencesInitial extends PreferencesState {}
 
 class PreferencesSelection extends PreferencesState {
   final List<String> choices;
+  final String religionChoice;
 
-  const PreferencesSelection(this.choices);
+  const PreferencesSelection(
+      {required this.choices, required this.religionChoice});
 
   @override
-  List<Object> get props => [this.choices];
+  List<Object> get props => [choices, religionChoice];
 }
