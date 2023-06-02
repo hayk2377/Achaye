@@ -36,7 +36,7 @@ class User extends Equatable {
   });
 
   User.fromMap(Map<String, dynamic> map)
-      : id = map["_id"] as String,
+      : id = map["_id"],
         email = map["email"] as String,
         password = map["password"] as String,
         firstName = map["firstName"] as String,
@@ -46,6 +46,7 @@ class User extends Equatable {
         birthday = map["birthday"] as String,
         bio = map["bio"] as String,
         photoUrl = map["photoUrl"],
+        imageFilePath = map["imageFilePath"],
         //should not accept imagePath from map
         religiousPreferences = List<String>.from(map["religiousPreferences"]),
         hobbies = List<String>.from(map["hobbies"]);

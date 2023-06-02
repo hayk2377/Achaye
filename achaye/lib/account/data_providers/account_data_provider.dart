@@ -13,7 +13,9 @@ class AccountDataProvider {
 
     if (userMap["imageFilePath"] != null) {
       var filePath = userMap["imageFilePath"] as String;
+      print(filePath);
       var file = await MultipartFile.fromFile(filePath);
+      print(file);
       userMap["file"] = file;
     }
 

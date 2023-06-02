@@ -1,7 +1,7 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:go_router/go_router.dart';
-import 'package:image_picker/impage_picker.dart';
 
 class SlideImage extends StatefulWidget {
   Map<String, Object> userData;
@@ -16,7 +16,7 @@ class SlideImage extends StatefulWidget {
 }
 
 class _SlideImageState extends State<SlideImage> {
-  File? _selectedImage;
+  String? _selectedImagePath;
   String? selectedReligion;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -24,10 +24,13 @@ class _SlideImageState extends State<SlideImage> {
   _SlideImageState(Map<String, Object> userData);
 
   Future<void> _selectImage() async {
-    final pickedImage = await FilePicker;
-    if (pickedImage != null) {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['jpg', 'pdf', 'doc'],
+    );
+    if (result != null) {
       setState(() {
-        _selectedImage = File(pickedImage.path);
+        _selectedImagePath = result.files.single.path.toString();
       });
     }
   }
@@ -65,6 +68,7 @@ class _SlideImageState extends State<SlideImage> {
                   hint: const Text('Select Religion'),
                   onChanged: (newValue) {
                     setState(() {
+                      //////////////////////////////////////
                       selectedReligion = newValue!;
                     });
                   },
@@ -104,7 +108,7 @@ class _SlideImageState extends State<SlideImage> {
                 const SizedBox(height: 20),
                 Container(
                   alignment: Alignment.center,
-                  child: _selectedImage != null
+                  child: _selectedImagePath != null
                       ? const Text('you have selected')
                       : const Text('No image selected'),
                 ),
@@ -131,11 +135,12 @@ class _SlideImageState extends State<SlideImage> {
                         onPressed: () {
                           final form = _formKey.currentState;
                           if (form!.validate()) {
-                            if (_selectedImage != null) {
+                            if (_selectedImagePath != null) {
                               widget.userData['imageFilePath'] =
-                                  _selectedImage!.path;
-                              widget.userData['religiousPreferences'] =
-                                  _selectedImage!.path;
+                                  _selectedImagePath as String;
+                              widget.userData['religiousPreferences'] = [
+                                selectedReligion as String
+                              ];
 
                               context.go('/pagefour');
                             } else {
