@@ -8,6 +8,8 @@ class HeaderProvider {
 
     if (withToken) {
       String accessToken = await getStoredToken();
+      ///////////
+      if (accessToken == "") throw Exception("there is not token!");
       header['Authorization'] = 'Bearer $accessToken';
     }
     return header;

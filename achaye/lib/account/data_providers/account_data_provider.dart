@@ -32,17 +32,21 @@ class AccountDataProvider {
       body: jsonEncode({"email": email, "password": password}),
     );
 
+    print('email was $email');
+    print('password was $password');
+    print('response was ${response.body}');
+
     return response;
   }
 
-  Future<http.Response> logOut() async {
-    var response = await http.delete(
-        //
-        Uri.parse('$baseUrl/users/logged-in'),
-        headers: await headerProvider.create());
+  Future<void> logOut() async {
+    // var response = await http.delete(
+    //     //
+    //     Uri.parse('$baseUrl/users/logged-in'),
+    //     headers: await headerProvider.create());
 
     await headerProvider.deleteToken();
-    return response;
+    // return response;
   }
 
   Future<bool> isLoggedIn() async {

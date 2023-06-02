@@ -31,8 +31,9 @@ class AccountRepository {
 
   Future<bool> logOut() async {
     var response = await accountDataProvider.logOut();
-    Map<String, dynamic> json = jsonDecode(response.body);
-    return (json["error"] != null);
+    // Map<String, dynamic> json = jsonDecode(response.body);
+    // return (json["error"] != null);
+    return true;
   }
 
   Future<User> edit(User user) async {

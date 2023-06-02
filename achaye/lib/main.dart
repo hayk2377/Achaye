@@ -9,7 +9,7 @@ import 'package:achaye/preferences/preferences.dart';
 //
 
 void main() {
-  var baseUrl = "http://10.0.0.2:3001/api";
+  var baseUrl = "http://192.168.189.46:3001/api";
   var headerProvider = HeaderProvider();
 
   var accountDataProvider =

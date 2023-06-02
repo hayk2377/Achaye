@@ -13,7 +13,6 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       print("Data: ${event.userData}");
       User user = User.fromMap(event.userData);
       await accountRepository.signup(user);
-      return;
       print("signed up!");
       emit(SignupSuccess());
     });

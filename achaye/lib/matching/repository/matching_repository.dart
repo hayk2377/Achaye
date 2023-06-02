@@ -42,6 +42,8 @@ class MatchingRepository {
     var response = await matchingDataProvider.getMatches();
     List<dynamic> matchResults = jsonDecode(response.body);
 
+    print(matchResults);
+
     List<Match> matches = matchResults.map((matchResult) {
       var mapifized = matchResult as Map<String, dynamic>;
       return Match.fromMap(mapifized);

@@ -3,6 +3,5 @@ export './repository/matching_repository.dart';
 export './screens/chat_list.dart';
 export './screens/discover_route.dart';
 
-export './blocs/chat_bloc.dart';
-export './blocs/chat_list_bloc.dart';
+export './blocs/chatting_bloc.dart';
 export './blocs/swiping_bloc.dart';

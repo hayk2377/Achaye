@@ -114,17 +114,17 @@ class AchayeApp extends StatelessWidget {
             BlocProvider(
                 create: (context) =>
                     ValidatorBloc(context.read<AccountRepository>())),
-            BlocProvider(create: (context) => ChatListBloc()),
-            BlocProvider(
-              create: (context) => ChatBloc(),
-            ),
+
             BlocProvider(
                 create: (context) =>
                     PreferencesBloc(context.read<PreferencesRepository>())),
             BlocProvider(
-                create: (context) => SignupBloc(context.read<AccountRepository>())),
-            BlocProvider(create: (context) => ChattingBloc(context.read<MatchingRepository>()))
-                    // SignupBloc(context.read<AccountRepository>())),
+                create: (context) =>
+                    SignupBloc(context.read<AccountRepository>())),
+            BlocProvider(
+                create: (context) =>
+                    ChattingBloc(context.read<MatchingRepository>()))
+            // SignupBloc(context.read<AccountRepository>())),
           ],
           child: MaterialApp.router(
             routerConfig: _router,

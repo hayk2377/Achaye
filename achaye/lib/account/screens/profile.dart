@@ -1,3 +1,4 @@
+import 'package:achaye/account/account.dart';
 import 'package:achaye/account/blocs/profile_managing_bloc.dart';
 import 'package:achaye/account/repository/account_repository.dart';
 import 'package:flutter/material.dart';
@@ -86,13 +87,22 @@ class ProfileBodyScreen extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  ProfileOptions(
-                    onPress: () {
+                  BlocConsumer<ValidatorBloc, ValidatorState>(
+                      listener: (context, state) {
+                    if (state is ValidatorDefault &&
+                        state.error == ValidatorError.None) {
                       context.go('/');
-                    },
-                    title: "Logout",
-                    icon: Icons.logout,
-                  ),
+                    }
+                  }, builder: (context, state) {
+                    return ProfileOptions(
+                      onPress: () {
+                        var bloc = context.read<ValidatorBloc>();
+                        bloc.add(LogoutEvent());
+                      },
+                      title: "Logout",
+                      icon: Icons.logout,
+                    );
+                  }),
                   ProfileOptions(
                     onPress: () {
                       bloc.add(DeleteProfile());

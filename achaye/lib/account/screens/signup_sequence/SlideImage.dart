@@ -136,8 +136,8 @@ class _SlideImageState extends State<SlideImage> {
                           final form = _formKey.currentState;
                           if (form!.validate()) {
                             if (_selectedImagePath != null) {
-                              widget.userData['imageFilePath'] =
-                                  _selectedImagePath as String;
+                              // widget.userData['imageFilePath'] =
+                              //     _selectedImagePath as String;
                               widget.userData['religiousPreferences'] = [
                                 selectedReligion as String
                               ];

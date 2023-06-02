@@ -4,8 +4,7 @@ import 'package:go_router/go_router.dart';
 class SlideTwo extends StatefulWidget {
   Map<String, Object> userData;
 
-  SlideTwo({Key? key, required this.userData})
-      : super(key: key);
+  SlideTwo({Key? key, required this.userData}) : super(key: key);
 
   @override
   _SlideTwoState createState() => _SlideTwoState();
@@ -18,7 +17,7 @@ class _SlideTwoState extends State<SlideTwo> {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: const Text('SignUp'),
         backgroundColor: Color(0xFFFF7F50),
@@ -45,13 +44,11 @@ class _SlideTwoState extends State<SlideTwo> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
                     const Text(
                       'Email',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 16),
-
                     TextFormField(
                       controller: _emailController,
                       decoration: InputDecoration(
@@ -78,7 +75,6 @@ class _SlideTwoState extends State<SlideTwo> {
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 12),
-
                     TextFormField(
                       obscureText: true,
                       controller: _passwordController,
@@ -102,24 +98,30 @@ class _SlideTwoState extends State<SlideTwo> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     ElevatedButton(
-                      onPressed:()=>context.go('/pageone'),
+                      onPressed: () => context.go('/pageone'),
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(Color(0xFFFF7F50)),
-                        foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Color(0xFFFF7F50)),
+                        foregroundColor:
+                            MaterialStateProperty.all<Color>(Colors.black),
                       ),
                       child: const Text('Previous'),
                     ),
                     ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          widget.userData['email'] = _emailController.text;
-                          widget.userData['password'] = _passwordController.text;
+                          widget.userData['email'] =
+                              _emailController.text.trim();
+                          widget.userData['password'] =
+                              _passwordController.text;
                           context.go('/pagethree');
                         }
                       },
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-                        foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.blue),
+                        foregroundColor:
+                            MaterialStateProperty.all<Color>(Colors.black),
                       ),
                       child: const Text('Next'),
                     ),
@@ -133,4 +135,3 @@ class _SlideTwoState extends State<SlideTwo> {
     );
   }
 }
-

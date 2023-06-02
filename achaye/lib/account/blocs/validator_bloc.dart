@@ -18,7 +18,8 @@ class ValidatorBloc extends Bloc<ValidatorEvent, ValidatorState> {
 
   _logout(event, emit) async {
     print("backend being called");
-    await this.accountRepository.logOut();
+    /////////////////////////////////
+    await accountRepository.logOut();
     emit(ValidatorDefault(
         error: ValidatorError.None,
         email: TextEditingController(),
@@ -46,7 +47,7 @@ class ValidatorBloc extends Bloc<ValidatorEvent, ValidatorState> {
   }
 
   _generatePage(RequestPageLoad event, emit) async {
-    bool isLoggedIn = false; //await accountRepository.isLoggedIn();
+    bool isLoggedIn = await accountRepository.isLoggedIn();
     if (isLoggedIn) {
       emit(ValidatorSuccess());
     } else {
