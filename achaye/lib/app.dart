@@ -1,5 +1,3 @@
-import 'package:achaye/Signup/SlideZero.dart';
-import 'package:achaye/Signup/bloc/signup_bloc.dart';
 import 'package:achaye/account/blocs/profile_managing_bloc.dart';
 import 'package:achaye/account/blocs/signup_validator_bloc.dart';
 import 'package:achaye/account/screens/edit_profile.dart';
@@ -13,12 +11,14 @@ import 'package:achaye/account/account.dart';
 import 'package:achaye/matching/matching.dart';
 import 'package:achaye/preferences/preferences.dart';
 
-import 'Signup/SlideFour.dart';
-import 'Signup/SlideImage.dart';
-import 'Signup/SlideThree.dart';
-import 'Signup/SlideTwo.dart';
 import 'account/blocs/edit_profile_bloc.dart';
+import 'account/blocs/signup_bloc/signup_bloc.dart';
+import 'account/screens/signup_sequence/SlideFour.dart';
+import 'account/screens/signup_sequence/SlideImage.dart';
 import 'account/screens/signup_sequence/SlideOne.dart';
+import 'account/screens/signup_sequence/SlideThree.dart';
+import 'account/screens/signup_sequence/SlideTwo.dart';
+import 'account/screens/signup_sequence/SlideZero.dart';
 import 'matching/widgets/chat.dart';
 
 Map<String, Object> userData = {};
@@ -121,7 +121,7 @@ class AchayeApp extends StatelessWidget {
                 create: (context) =>
                     PreferencesBloc(context.read<PreferencesRepository>())),
             BlocProvider(
-                create: (context) => SignupBloc())
+                create: (context) => SignupBloc(context.read<AccountRepository>()))
                     // SignupBloc(context.read<AccountRepository>())),
           ],
           child: MaterialApp.router(

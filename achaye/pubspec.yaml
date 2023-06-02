@@ -50,6 +50,7 @@ dependencies:
   formz: ^0.6.0
   email_validator: ^2.1.17
   web_socket_channel: ^2.4.0
+  file_picker: ^5.3.1
 
 dev_dependencies:
   flutter_test:
