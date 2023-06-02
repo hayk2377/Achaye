@@ -16,9 +16,6 @@ const diskStorageInstructions = multer.diskStorage({
     const destinationPath = path.join(
       __dirname,
       "../",
-      "../",
-      "front-end",
-      "public",
       "profile-pictures"
     );
     next(null, destinationPath);

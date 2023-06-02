@@ -14,6 +14,8 @@ const PROFILE_PICTURE_PATH = "/profile-pictures";
 //almost signup
 router.post("/users", profilePictureMulter, async (req, res) => {
 	const photoUrl = path.join(PROFILE_PICTURE_PATH, req?.file?.filename ?? "");
+	// console.log(req.file);
+	// console.log(req.file.filename);
 	const profile = req.body;
 	profile.photoUrl = photoUrl;
 	const result = await userInfoHandler.fillProfile(profile);

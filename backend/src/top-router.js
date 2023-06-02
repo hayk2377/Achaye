@@ -1,5 +1,10 @@
+const path = require("path");
 const express = require("express");
+
 const router = express.Router();
+const public = path.join(__dirname, "profile-pictures"); //truly dono why not ./public
+router.use(express.static(public));
+
 const mongoose = require("mongoose");
 const cors = require("cors");
 
