@@ -13,14 +13,6 @@ import 'account/widgets/edit_profile.dart';
 import 'account/widgets/profile.dart';
 import 'matching/widgets/chat.dart';
 
-// import 'package:achaye/account/validation/bloc/validator_bloc.dart';
-// import 'package:achaye/account/widgets/profile.dart';
-// import 'package:achaye/matching/widgets/chat.dart';
-// import 'package:achaye/preferences/preferences_bloc/preferences_bloc.dart';
-// import 'package:achaye/preferences/repository/preferences_repository.dart';
-// import 'package:achaye/preferences/widgets/preferences.dart';
-
-// import 'account/screen/login_screen.dart';
 
 class AchayeApp extends StatelessWidget {
   AccountDataProvider accountDataProvider;
