@@ -1,11 +1,12 @@
+import 'package:achaye/account/repository/account_repository.dart';
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
 
 part 'signup_event.dart';
 part 'signup_state.dart';
 
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
-  SignupBloc() : super(SignupInitial()) {
+  AccountRepository accountRepository;
+  SignupBloc(this.accountRepository) : super(SignupInitial()) {
     on<SendDataToServer>((event, emit) {
       print("Data: ${event.userData}");
       emit(SignupSuccess());

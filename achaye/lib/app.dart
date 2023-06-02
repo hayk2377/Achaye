@@ -1,3 +1,5 @@
+import 'package:achaye/Signup/SlideZero.dart';
+import 'package:achaye/Signup/bloc/signup_bloc.dart';
 import 'package:achaye/account/blocs/profile_managing_bloc.dart';
 import 'package:achaye/account/blocs/signup_validator_bloc.dart';
 import 'package:achaye/account/screens/edit_profile.dart';
@@ -11,8 +13,15 @@ import 'package:achaye/account/account.dart';
 import 'package:achaye/matching/matching.dart';
 import 'package:achaye/preferences/preferences.dart';
 
+import 'Signup/SlideFour.dart';
+import 'Signup/SlideImage.dart';
+import 'Signup/SlideThree.dart';
+import 'Signup/SlideTwo.dart';
 import 'account/blocs/edit_profile_bloc.dart';
+import 'account/screens/signup_sequence/SlideOne.dart';
 import 'matching/widgets/chat.dart';
+
+Map<String, Object> userData = {};
 
 class AchayeApp extends StatelessWidget {
   AccountDataProvider accountDataProvider;
@@ -27,7 +36,7 @@ class AchayeApp extends StatelessWidget {
 
   final GoRouter _router = GoRouter(routes: [
     GoRoute(path: '/', builder: ((context, state) => Login())),
-    GoRoute(path: '/signup', builder: ((context, state) => SignUpAccount())),
+    GoRoute(path: '/signup', builder: ((context, state) => SlideZero())),
     GoRoute(
       path: '/discover',
       builder: (context, state) => Discover(),
@@ -46,7 +55,35 @@ class AchayeApp extends StatelessWidget {
     GoRoute(
       path: '/editprofile',
       builder: (context, state) => EditProfile(),
-    )
+    ),
+    GoRoute(
+      path: '/pageone',
+      builder: (context, state) => SlideOne(
+        userData: userData,
+      ),
+    ),
+    GoRoute(
+      path: '/pagetwo',
+      builder: (context, state) => SlideTwo(userData: userData),
+    ),
+    GoRoute(
+      path: '/pagethree',
+      builder: (context, state) => SlideThree(
+        userData: userData,
+      ),
+    ),
+    GoRoute(
+      path: '/pagefour',
+      builder: (context, state) => SlideFour(
+        userData: userData,
+      ),
+    ),
+    GoRoute(
+      path: '/pageimage',
+      builder: (context, state) => SlideImage(
+        userData: userData,
+      ),
+    ),
   ]);
 
   @override
@@ -83,7 +120,9 @@ class AchayeApp extends StatelessWidget {
             BlocProvider(
                 create: (context) =>
                     PreferencesBloc(context.read<PreferencesRepository>())),
-            
+            BlocProvider(
+                create: (context) => SignupBloc())
+                    // SignupBloc(context.read<AccountRepository>())),
           ],
           child: MaterialApp.router(
             routerConfig: _router,
