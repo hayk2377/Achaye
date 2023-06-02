@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'package:achaye/matching/matching.dart';
 import 'package:achaye/matching/models/other_user.dart';
 import 'package:achaye/matching/repository/matching_repository.dart';
 import 'package:equatable/equatable.dart';
@@ -17,14 +16,16 @@ class ChattingBloc extends Bloc<ChattingEvent, ChattingState> {
   MatchingRepository matchingRepository;
   ChattingBloc(this.matchingRepository) : super(ChattingInitial()) {
     on<FetchData>(_fetchData);
-    on<TextArrival>(_reorderChats);
+    on<TextArrival>(_handleArrival);
     on<TextSent>(_sendText);
   }
 
   _sendText(event, emit) {
     if (state is ChatsLoaded) {
       String content = (event as TextSent).content;
-      state.channels[]
+      String chatId = (event as TextSent).content;
+      WebSocketChannel? channel = (state as ChatsLoaded).channels[chatId];
+      channel!.sink.add(content);
     }
   }
 
@@ -41,11 +42,9 @@ class ChattingBloc extends Bloc<ChattingEvent, ChattingState> {
 
       var channel = matchingRepository.enterChat(chatId: chatId);
       channels[chatId] = channel;
-      channel.stream.listen((string) {
-        var incomingString = string as String;
-        add(TextArrival(
-            content: Message(content: incomingString, sentBySelf: false),
-            chatId: chatId));
+      channel.stream.listen((content) {
+        var incomingContent = content as String;
+        add(TextArrival(content: incomingContent, chatId: chatId));
       });
 
       String partnerId = match.partnerId;
@@ -73,15 +72,16 @@ class ChattingBloc extends Bloc<ChattingEvent, ChattingState> {
     }
   }
 
-  _reorderChats(event, emit) async {
+  _handleArrival(event, emit) async {
     if (state is ChatsLoaded) {
       ChatsLoaded newState = (state as ChatsLoaded).copy();
       String chatId = (event as TextArrival).chatId;
-      Message message = (event as TextArrival).message;
+      String content = (event as TextArrival).content;
 
-      (newState.messages[chatId] as List<Message>).add(message);
+      (newState.messages[chatId] as List<Message>)
+          .add(Message(content: content, sentBySelf: false));
 
-      emit(ChatsLoaded());
+      emit(newState);
     }
   }
 }

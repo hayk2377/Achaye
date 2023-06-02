@@ -8,6 +8,7 @@ abstract class ChattingEvent extends Equatable {
 }
 
 class TextArrival extends ChattingEvent {
+  String content;
   String chatId;
 
   TextArrival({required this.content, required this.chatId});
