@@ -13,6 +13,7 @@ class ChatsLoaded extends ChattingState {
   late Map<String, Match> matches;
   late Map<String, WebSocketChannel> channels;
   late List<ProfileLog> profileLogs;
+  final TextEditingController writtenMessage;
   String? currentChat;
 
   ChatsLoaded(
@@ -22,7 +23,8 @@ class ChatsLoaded extends ChattingState {
       required List<List<Message>> messagesList,
       required this.partners,
       required this.channels,
-      this.currentChat
+      this.currentChat,
+      required this.writtenMessage
       //
       }) {
     for (int i = 0; i < listMatches.length; i++) {
@@ -74,6 +76,7 @@ class ChatsLoaded extends ChattingState {
     }
 
     return ChatsLoaded(
+      writtenMessage: TextEditingController(),
         listMatches: listMatches,
         messagesList: messagesList,
         partners: copyPartners,

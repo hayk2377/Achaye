@@ -1,9 +1,9 @@
 import 'package:achaye/common/options_dialog.dart';
+import 'package:achaye/matching/blocs/chatting_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:achaye/matching/blocs/chat_bloc.dart';
 
 class ChatScreen extends StatelessWidget {
   @override
@@ -59,41 +59,40 @@ class ChatScreen extends StatelessWidget {
 class ChatBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final bloc = context.watch<ChatBloc>();
+    final bloc = context.watch<ChattingBloc>();
     final state = bloc.state;
 
-    if (state is ChatInitial) {
-      bloc.add(GiveMeChatData());
+    if (state is ChattingInitial) {
+      bloc.add(FetchData());
       return Container();
-    } else if (state is ChatLoading) {
+    } else if (state is ChattingLoading) {
       return Align(
         alignment: Alignment.center,
         child: CupertinoActivityIndicator(),
       );
-    } else if (state is ChatLoaded) {
+    } else if (state is ChatsLoaded) {
       return Stack(
         children: [
           ListView.builder(
-            itemCount: state.messages.length,
+            itemCount: (state as ChatsLoaded).messages[(state.currentChat as ChatsLoaded)]!.length,
             padding: EdgeInsets.only(top: 10, bottom: 50),
             itemBuilder: (context, index) => Container(
               padding: EdgeInsets.only(left: 5, right: 5, top: 10, bottom: 10),
               child: InkWell(
-                onTap: () => bloc.add(TextArrival()),
                 child: Align(
-                    alignment: (state.messages[index].sentBySelf
+                    alignment: (state.messages[(state.currentChat)]![index].sentBySelf
                         ? Alignment.topRight
                         : Alignment.topLeft),
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: (!state.messages[index].sentBySelf
+                        color: (!state.messages[(state.currentChat)]![index].sentBySelf
                             ? Colors.grey.shade200
                             : Colors.orange[200]),
                       ),
                       padding: EdgeInsets.all(16),
                       child: Text(
-                        state.messages[index].content,
+                        state.messages[(state.currentChat)]![index].content,
                         style: TextStyle(fontSize: 15),
                       ),
                     )),
@@ -130,7 +129,7 @@ class ChatBody extends StatelessWidget {
                       if (state.writtenMessage.text.length == 0) {
                         print('Can\'t send a null message');
                       } else {
-                        bloc.add(TextSent());
+                        bloc.add(TextSent(content: state.writtenMessage.text, chatId: state.currentChat!));
                       }
                     },
                     child: Icon(

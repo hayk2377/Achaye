@@ -19,6 +19,7 @@ import 'account/screens/signup_sequence/SlideOne.dart';
 import 'account/screens/signup_sequence/SlideThree.dart';
 import 'account/screens/signup_sequence/SlideTwo.dart';
 import 'account/screens/signup_sequence/SlideZero.dart';
+import 'matching/blocs/chatting_bloc.dart';
 import 'matching/widgets/chat.dart';
 
 Map<String, Object> userData = {};
@@ -121,7 +122,8 @@ class AchayeApp extends StatelessWidget {
                 create: (context) =>
                     PreferencesBloc(context.read<PreferencesRepository>())),
             BlocProvider(
-                create: (context) => SignupBloc(context.read<AccountRepository>()))
+                create: (context) => SignupBloc(context.read<AccountRepository>())),
+            BlocProvider(create: (context) => ChattingBloc(context.read<MatchingRepository>()))
                     // SignupBloc(context.read<AccountRepository>())),
           ],
           child: MaterialApp.router(

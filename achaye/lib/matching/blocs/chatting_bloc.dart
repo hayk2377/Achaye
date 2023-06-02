@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:achaye/matching/models/message.dart';
 import 'package:achaye/matching/models/match.dart';
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 
 import '../models/profilelog.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -53,6 +54,7 @@ class ChattingBloc extends Bloc<ChattingEvent, ChattingState> {
       partners[partnerId] = partner;
     }
     var state = ChatsLoaded(
+      writtenMessage: TextEditingController(),
         listMatches: listMatches,
         messagesList: messagesList,
         partners: partners,

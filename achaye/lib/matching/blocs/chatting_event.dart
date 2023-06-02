@@ -15,9 +15,9 @@ class TextArrival extends ChattingEvent {
 }
 
 class TextSent extends ChattingEvent {
-  String content;
+  final String content;
 
-  String chatId;
+  final String chatId;
   TextSent({required this.content, required this.chatId});
 }
 

@@ -1,4 +1,5 @@
 import 'package:achaye/common/options_dialog.dart';
+import 'package:achaye/matching/blocs/chatting_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -6,7 +7,6 @@ import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:achaye/matching/blocs/chat_list_bloc.dart';
 
 class ChatList extends StatelessWidget {
   ChatList({super.key});
@@ -48,19 +48,19 @@ class Chats extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = context.watch<ChatListBloc>();
+    final bloc = context.watch<ChattingBloc>();
     final state = bloc.state;
 
-    if (state is ChatListInitial) {
+    if (state is ChattingInitial) {
       bloc.add(FetchData());
       return Container();
-    } else if (state is ChatListLoading) {
+    } else if (state is ChattingLoading) {
       return Align(
         alignment: Alignment.center,
         child: CupertinoActivityIndicator(),
       );
-    } else if (state is ChatListLoaded) {
-      final data = state.data;
+    } else if (state is ChatsLoaded) {
+      final data = state.profileLogs;
       return ListView(
           children: data.map((e) {
         return InkWell(
