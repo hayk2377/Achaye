@@ -21,6 +21,13 @@ class MatchingDataProvider {
     return response;
   }
 
+  Future<http.Response> getOtherUser(String otherUserId) async {
+    var response = await http.get(Uri.parse('$baseUrl/otherusers/$otherUserId'),
+        headers: await headerProvider.create());
+
+    return response;
+  }
+
   Future<http.Response> like(String likedId) async {
     var response = await http.post(
       Uri.parse('$baseUrl/likes'),
@@ -48,12 +55,11 @@ class MatchingDataProvider {
     return response;
   }
 
-  Future<http.Response> getMessages(String chatId) async{
+  Future<http.Response> getMessages(String chatId) async {
     var response = await http.get(Uri.parse('$baseUrl/messages/$chatId'),
         headers: await headerProvider.create());
 
     return response;
-    
   }
 
   Future<http.Response> createAppointment(

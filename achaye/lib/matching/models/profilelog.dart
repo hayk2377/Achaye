@@ -1,6 +1,6 @@
 class ProfileLog {
   String? name;
-  int? id;
+  String? id;
   String? image;
   String? recentTyped;
   DateTime? time;

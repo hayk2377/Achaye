@@ -38,15 +38,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
           time: DateTime.parse('2022-05-01 14:30:00')),
       ProfileLog(
           name: "Angela",
-          id: 4,
-          image: 'images/girlseven.jpg',
-          recentTyped: 'Goodnight😘',
-          time: DateTime.parse('2021-02-01 14:00:00')),
-    ];
-    chatActivity.sort((a, b) => a.time!.millisecondsSinceEpoch
-        .compareTo(b.time!.millisecondsSinceEpoch));
-
-    emit(ChatListLoaded(chatActivity.reversed.toList()));
+          id
   }
 
   _reorderChats(event, emit) async {

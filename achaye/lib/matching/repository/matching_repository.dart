@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:achaye/matching/models/message.dart';
 
 import '../data_providers/matching_data_provider.dart';
 import '../models/other_user.dart';
 import '../models/match.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 class MatchingRepository {
   MatchingDataProvider matchingDataProvider;
@@ -18,6 +20,12 @@ class MatchingRepository {
       return OtherUser.fromMap(mapifized);
     }).toList();
     return users;
+  }
+
+  Future<OtherUser> getOtherUser(String otherUserId) async {
+    var response = await matchingDataProvider.getOtherUser(otherUserId);
+    var otherUserMap = jsonDecode(response.body) as Map<String, dynamic>;
+    return OtherUser.fromMap(otherUserMap);
   }
 
   Future<bool> like(String likedId) async {
@@ -69,12 +77,8 @@ class MatchingRepository {
     return response.statusCode == 200;
   }
 
-  Function(String) enterChat(
-      {required String chatId, required void Function(String) onMessage}) {
+  WebSocketChannel enterChat({required String chatId}) {
     var wsChannel = matchingDataProvider.getWebSocketChannel(chatId);
-    var stream = wsChannel.stream;
-    stream.listen((data) => onMessage(data as String));
-
-    return (String message) => wsChannel.sink.add(message);
+    return wsChannel;
   }
 }
