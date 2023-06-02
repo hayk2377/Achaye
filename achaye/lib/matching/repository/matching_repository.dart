@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:achaye/matching/models/message.dart';
+
 import '../data_providers/matching_data_provider.dart';
 import '../models/other_user.dart';
 import '../models/match.dart';
@@ -37,6 +39,17 @@ class MatchingRepository {
       return Match.fromMap(mapifized);
     }).toList();
     return matches;
+  }
+
+  Future<List<Message>> getMessages(String chatId) async {
+    var response = await matchingDataProvider.getMessages(chatId);
+    List<dynamic> messageResults = jsonDecode(response.body);
+
+    List<Message> messages = messageResults.map((messageResult) {
+      var mapifized = messageResult as Map<String, dynamic>;
+      return Message.fromMap(mapifized);
+    }).toList();
+    return messages;
   }
 
   Future<bool> createAppointment(String chatId, String appointment) async {

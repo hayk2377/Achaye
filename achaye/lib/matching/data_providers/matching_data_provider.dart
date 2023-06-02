@@ -48,6 +48,14 @@ class MatchingDataProvider {
     return response;
   }
 
+  Future<http.Response> getMessages(String chatId) async{
+    var response = await http.get(Uri.parse('$baseUrl/messages/$chatId'),
+        headers: await headerProvider.create());
+
+    return response;
+    
+  }
+
   Future<http.Response> createAppointment(
       String chatId, String appointment) async {
     var response = await http.post(
