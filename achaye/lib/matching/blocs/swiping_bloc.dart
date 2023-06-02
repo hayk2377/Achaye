@@ -50,6 +50,7 @@ class SwipingBloc extends Bloc<SwipingEvent, SwipingState> {
   }
 
   _fetchData(event, emit) async {
+    print('I am being called');
     emit(SwipingLoading());
     List<OtherUser> suggestions = await matchingRepository.getSuggestions();
 

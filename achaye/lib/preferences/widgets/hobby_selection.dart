@@ -16,7 +16,7 @@ class HobbySelection extends StatelessWidget {
     '👗 Fashion',
     '🎮 Games',
     '🎨 Art',
-    '💻 Coding'
+    '💻 Coding',
   ];
 
   @override

@@ -46,7 +46,7 @@ class ValidatorBloc extends Bloc<ValidatorEvent, ValidatorState> {
   }
 
   _generatePage(RequestPageLoad event, emit) async {
-    bool isLoggedIn = await accountRepository.isLoggedIn();
+    bool isLoggedIn = false; //await accountRepository.isLoggedIn();
     if (isLoggedIn) {
       emit(ValidatorSuccess());
     } else {

@@ -6,9 +6,9 @@ class Preferences extends Equatable {
 
   Preferences({required this.religiousPreferences, required this.hobbies});
 
-  Preferences.fromMap(Map<String, Object> json)
-      : religiousPreferences = json["religiousPreferences"] as List<String>,
-        hobbies = json["hobbies"] as List<String>;
+  Preferences.fromMap(Map<String, dynamic> json)
+      : religiousPreferences = List<String>.from(json["religiousPreferences"]),
+        hobbies = List<String>.from(json["hobbies"]);
 
   Map<String, Object> toMap() {
     Map<String, Object> json = {

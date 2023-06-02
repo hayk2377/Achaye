@@ -55,6 +55,13 @@ class AccountDataProvider {
     return response;
   }
 
+  Future<http.Response> get() async {
+    var response = await http.get(Uri.parse('$baseUrl/profile'),
+        headers: await headerProvider.create());
+
+    return response;
+  }
+
   Future<http.Response> delete() async {
     var response = await http.delete(Uri.parse('$baseUrl/'),
         headers: await headerProvider.create());

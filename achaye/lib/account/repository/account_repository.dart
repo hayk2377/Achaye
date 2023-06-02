@@ -42,6 +42,13 @@ class AccountRepository {
     return User.fromMap(json);
   }
 
+  Future<User> get() async {
+    var response = await accountDataProvider.get();
+    Map<String, dynamic> json = jsonDecode(response.body);
+
+    return User.fromMap(json);
+  }
+
   Future<bool> delete() async {
     await accountDataProvider.delete();
     return true;

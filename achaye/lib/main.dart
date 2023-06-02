@@ -15,19 +15,11 @@ void main() {
   var accountDataProvider =
       AccountDataProvider(baseUrl: baseUrl, headerProvider: headerProvider);
 
-  // var accountRepository = AccountRepository(accountDataProvider);
-
-  //
   var matchingDataProvider =
       MatchingDataProvider(baseUrl: baseUrl, headerProvider: headerProvider);
-  // var matchingRepository = MatchingRepository(matchingDataProvider);
-
-  //
 
   var preferencesDataProvider =
       PreferencesDataProvider(baseUrl: baseUrl, headerProvider: headerProvider);
-  // var preferencesRepository = PreferencesRepository(preferencesDataProvider);
-
   runApp(AchayeApp(
     accountDataProvider: accountDataProvider,
     matchingDataProvider: matchingDataProvider,

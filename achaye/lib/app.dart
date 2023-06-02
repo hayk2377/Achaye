@@ -1,4 +1,7 @@
+import 'package:achaye/account/blocs/profile_managing_bloc.dart';
 import 'package:achaye/account/blocs/signup_validator_bloc.dart';
+import 'package:achaye/account/screens/edit_profile.dart';
+import 'package:achaye/account/screens/profile.dart';
 import 'package:achaye/account/widgets/sign_up_dummy.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,10 +12,7 @@ import 'package:achaye/matching/matching.dart';
 import 'package:achaye/preferences/preferences.dart';
 
 import 'account/blocs/edit_profile_bloc.dart';
-import 'account/widgets/edit_profile.dart';
-import 'account/widgets/profile.dart';
 import 'matching/widgets/chat.dart';
-
 
 class AchayeApp extends StatelessWidget {
   AccountDataProvider accountDataProvider;
@@ -73,17 +73,17 @@ class AchayeApp extends StatelessWidget {
                 create: (context) => SignupValidatorBloc(
                       context.read<AccountRepository>(),
                     )),
-            BlocProvider(create: (context) => ChatListBloc()),
             BlocProvider(
-              create: (context) =>
-                  ValidatorBloc(context.read<AccountRepository>()),
-            ),
+                create: (context) =>
+                    ValidatorBloc(context.read<AccountRepository>())),
+            BlocProvider(create: (context) => ChatListBloc()),
             BlocProvider(
               create: (context) => ChatBloc(),
             ),
-            BlocProvider(create: (context) => PreferencesBloc()),
-            BlocProvider(create: (context) => EditProfileBloc())
-
+            BlocProvider(
+                create: (context) =>
+                    PreferencesBloc(context.read<PreferencesRepository>())),
+            
           ],
           child: MaterialApp.router(
             routerConfig: _router,

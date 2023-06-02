@@ -18,16 +18,16 @@ class ChatsLoaded extends ChattingState {
   ChatsLoaded(
       {
       //
-      required List<Match> eachMatch,
-      required List<List<Message>> eachMessages,
+      required List<Match> listMatches,
+      required List<List<Message>> messagesList,
       required this.partners,
       required this.channels,
       this.currentChat
       //
       }) {
-    for (int i = 0; i < eachMatch.length; i++) {
-      Match thisMatch = eachMatch[i];
-      List<Message> thisMessages = eachMessages[i];
+    for (int i = 0; i < listMatches.length; i++) {
+      Match thisMatch = listMatches[i];
+      List<Message> thisMessages = messagesList[i];
       OtherUser partner = partners[thisMatch.partnerId] as OtherUser;
 
       String chatId = thisMatch.chatId;
@@ -58,24 +58,24 @@ class ChatsLoaded extends ChattingState {
   }
 
   ChatsLoaded copy() {
-    List<Match> eachMatch = [];
-    List<List<Message>> eachMessages = [];
+    List<Match> listMatches = [];
+    List<List<Message>> messagesList = [];
     Map<String, OtherUser> copyPartners = Map.from(partners);
 
     for (String key in matches.keys) {
       Match match = matches[key] as Match;
-      eachMatch.add(match);
+      listMatches.add(match);
 
       List<Message> matchMessages = [];
       for (Message message in (messages[key] as List<Message>)) {
         matchMessages.add(message);
       }
-      eachMessages.add(matchMessages);
+      messagesList.add(matchMessages);
     }
 
     return ChatsLoaded(
-        eachMatch: eachMatch,
-        eachMessages: eachMessages,
+        listMatches: listMatches,
+        messagesList: messagesList,
         partners: copyPartners,
         channels: channels);
   }

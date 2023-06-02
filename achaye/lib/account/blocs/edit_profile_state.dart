@@ -13,6 +13,7 @@ class EditProfileDefault extends EditProfileState {
   final String name;
   final String password;
   final String bio;
+  final String imageUrl;
 
   final TextEditingController nameController;
   final TextEditingController passwordController;
@@ -20,6 +21,7 @@ class EditProfileDefault extends EditProfileState {
 
   EditProfileDefault(
       {required this.nameController,
+      required this.imageUrl,
       required this.passwordController,
       required this.bioController,
       required this.name,
@@ -31,3 +33,5 @@ class EditProfileDefault extends EditProfileState {
 }
 
 class EditProfileError extends EditProfileState {}
+
+class EditProfileSuccess extends EditProfileState {}

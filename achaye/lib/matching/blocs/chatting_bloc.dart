@@ -17,28 +17,29 @@ class ChattingBloc extends Bloc<ChattingEvent, ChattingState> {
   ChattingBloc(this.matchingRepository) : super(ChattingInitial()) {
     on<FetchData>(_fetchData);
     on<TextArrival>(_handleArrival);
-    on<TextSent>(_sendText);
+    on<TextSent>(_handleSend);
   }
 
-  _sendText(event, emit) {
+  _handleSend(event, emit) {
     if (state is ChatsLoaded) {
       String content = (event as TextSent).content;
-      String chatId = (event as TextSent).content;
-      WebSocketChannel? channel = (state as ChatsLoaded).channels[chatId];
-      channel!.sink.add(content);
+      String chatId = (event as TextSent).chatId;
+      var state_ = (state as ChatsLoaded);
+      WebSocketChannel channel = state_.channels[chatId] as WebSocketChannel;
+      channel.sink.add(content);
     }
   }
 
   Future<ChatsLoaded> _initializeChats() async {
-    List<Match> eachMatch = await matchingRepository.getMatches();
-    List<List<Message>> eachMessages = [];
+    List<Match> listMatches = await matchingRepository.getMatches();
+    List<List<Message>> messagesList = [];
     Map<String, OtherUser> partners = {};
     Map<String, WebSocketChannel> channels = {};
 
-    for (Match match in eachMatch) {
+    for (Match match in listMatches) {
       String chatId = match.chatId;
       List<Message> messages = await matchingRepository.getMessages(chatId);
-      eachMessages.add(messages);
+      messagesList.add(messages);
 
       var channel = matchingRepository.enterChat(chatId: chatId);
       channels[chatId] = channel;
@@ -52,8 +53,8 @@ class ChattingBloc extends Bloc<ChattingEvent, ChattingState> {
       partners[partnerId] = partner;
     }
     var state = ChatsLoaded(
-        eachMatch: eachMatch,
-        eachMessages: eachMessages,
+        listMatches: listMatches,
+        messagesList: messagesList,
         partners: partners,
         channels: channels);
     return state;
@@ -78,8 +79,8 @@ class ChattingBloc extends Bloc<ChattingEvent, ChattingState> {
       String chatId = (event as TextArrival).chatId;
       String content = (event as TextArrival).content;
 
-      (newState.messages[chatId] as List<Message>)
-          .add(Message(content: content, sentBySelf: false));
+      var messages = newState.messages[chatId] as List<Message>;
+      messages.add(Message(content: content, sentBySelf: false));
 
       emit(newState);
     }

@@ -1,23 +1,42 @@
+import 'package:achaye/preferences/repository/preferences_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+
+import '../models/preferences.dart';
 
 part 'preferences_event.dart';
 part 'preferences_state.dart';
 
 class PreferencesBloc extends Bloc<PreferencesEvent, PreferencesState> {
-  PreferencesBloc() : super(PreferencesInitial()) {
+  PreferencesRepository preferencesRepository;
+  PreferencesBloc(this.preferencesRepository) : super(PreferencesInitial()) {
     on<PreferencesInitialEvent>(_changeInitialState);
     on<PreferencesSelectionEvent>(_handleChoices);
     on<ReligionSelectionEvent>(_handleReligionChoice);
+    on<PreferenceSubmitEvent>(_handleSubmit);
+  }
+
+  _handleSubmit(event, emit) async {
+    if (state is PreferencesSelection) {
+      final _state = state as PreferencesSelection;
+
+      var preferences = Preferences(
+          religiousPreferences: [_state.religionChoice],
+          hobbies: _state.choices);
+
+      await preferencesRepository.update(preferences);
+    }
   }
 
   _changeInitialState(event, emit) async {
     List<String> choices = [];
-    String religionChoice = "Protestant";
-    await Future.delayed(Duration(seconds: 2));
+    // Future.delayed(Duration(seconds: 2));
+    Preferences preferences = await preferencesRepository.get();
+    print(preferences);
 
-    emit(
-        PreferencesSelection(choices: choices, religionChoice: religionChoice));
+    emit(PreferencesSelection(
+        choices: preferences.hobbies,
+        religionChoice: preferences.religiousPreferences[0]));
   }
 
   _handleChoices(PreferencesSelectionEvent event, emit) async {

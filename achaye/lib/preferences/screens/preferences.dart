@@ -1,10 +1,10 @@
+import 'package:achaye/matching/blocs/swiping_bloc.dart';
 import 'package:achaye/preferences/blocs/preferences_bloc.dart';
 import 'package:achaye/preferences/widgets/hobby_selection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
 
 class PreferenceScreen extends StatelessWidget {
   @override
@@ -26,6 +26,10 @@ class PreferenceScreen extends StatelessWidget {
 class PreferencesBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final preferencesBloc = context.watch<PreferencesBloc>();
+    final swipingBloc = context.read<SwipingBloc>();
+    // final state = preferencesBloc.state;
+
     return Container(
       margin: EdgeInsets.only(top: 25),
       child: Column(
@@ -70,7 +74,12 @@ class PreferencesBox extends StatelessWidget {
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      /////////////////////////////////////////////////////////////////////////////////////////////
+                      preferencesBloc.add(PreferenceSubmitEvent());
+                      swipingBloc.add(GiveMeData());
+                      context.go('/discover');
+                    },
                     child: Text("Submit"),
                     style: ButtonStyle(
                         foregroundColor:
@@ -98,7 +107,8 @@ class _CustomDropDownState extends State<CustomDropDown> {
     'Protestant',
     'Muslim',
     'Other',
-    'I don\'t mind'
+    'I don\'t mind',
+    'abc'
   ];
 
   @override

@@ -17,7 +17,7 @@ class HeaderProvider {
     var prefs = await SharedPreferences.getInstance();
     String? accessToken = prefs.getString("accessToken");
     if (accessToken == null) {
-      throw Exception("No Jwt access token!");
+      return "";
     } else {
       return accessToken;
     }

@@ -1,5 +1,6 @@
+import 'package:achaye/account/account.dart';
 import 'package:achaye/account/blocs/edit_profile_bloc.dart';
-import 'package:achaye/account/widgets/profile.dart';
+import 'package:achaye/account/widgets/custom_rounded_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,17 +11,19 @@ class EditProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: BackButton(onPressed: () => context.pop()),
-        title: Text(
-          "Edit Profile",
-        ),
-        elevation: 0,
-        backgroundColor: Color(0xFFFF7F50),
-      ),
-      body: EditedProfileBody(),
-    );
+    return BlocProvider(
+        create: (context) => EditProfileBloc(context.read<AccountRepository>()),
+        child: Scaffold(
+          appBar: AppBar(
+            leading: BackButton(onPressed: () => context.pop()),
+            title: Text(
+              "Edit Profile",
+            ),
+            elevation: 0,
+            backgroundColor: Color(0xFFFF7F50),
+          ),
+          body: EditedProfileBody(),
+        ));
   }
 }
 
@@ -34,7 +37,11 @@ class EditedProfileBody extends StatelessWidget {
     final bloc = context.read<EditProfileBloc>();
 
     return BlocConsumer<EditProfileBloc, EditProfileState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is EditProfileSuccess) {
+          context.go('/discover');
+        }
+      },
       builder: (context, state) {
         if (state is EditProfileInitial) {
           bloc.add(FetchExistingData());
@@ -49,7 +56,7 @@ class EditedProfileBody extends StatelessWidget {
             child: Container(
               padding: EdgeInsets.all(32),
               child: Column(children: [
-                CustomRoundedImage(),
+                CustomRoundedImage(imageUrl: state.imageUrl,),
                 const SizedBox(
                   height: 50,
                 ),
@@ -57,7 +64,6 @@ class EditedProfileBody extends StatelessWidget {
                   child: Column(
                     children: [
                       EditedInputFields(
-                        filledInValue: state.name,
                         isHidden: false,
                         inputFieldName: "Name",
                         icon: Icons.person_outline_rounded,
@@ -67,7 +73,6 @@ class EditedProfileBody extends StatelessWidget {
                         height: 15,
                       ),
                       EditedInputFields(
-                        filledInValue: "something is happening",
                         isHidden: true,
                         inputFieldName: "password",
                         icon: Icons.password,
@@ -77,7 +82,6 @@ class EditedProfileBody extends StatelessWidget {
                         height: 15,
                       ),
                       EditedInputFields(
-                          filledInValue: "Lorem Ipsum Dolor Sit Amet",
                           isHidden: false,
                           inputFieldName: "Bio",
                           icon: Icons.note_outlined,
@@ -104,8 +108,10 @@ class EditedProfileBody extends StatelessWidget {
               ]),
             ),
           );
+        } else if (state is EditProfileSuccess) {
+          return Container();
         }
-        throw Exception("Unrecognized state $state");
+        throw Exception("Unrecognized state $state it is being handled here");
       },
     );
   }
@@ -113,13 +119,11 @@ class EditedProfileBody extends StatelessWidget {
 
 class EditedInputFields extends StatelessWidget {
   final IconData icon;
-  final String filledInValue;
   final String inputFieldName;
   final bool isHidden;
   final TextEditingController inputTextController;
 
   const EditedInputFields({
-    required this.filledInValue,
     required this.isHidden,
     required this.inputFieldName,
     required this.icon,

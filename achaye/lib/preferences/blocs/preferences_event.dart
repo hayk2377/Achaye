@@ -15,7 +15,7 @@ class PreferencesSelectionEvent extends PreferencesEvent {
   final String selectedValue;
   PreferencesSelectionEvent(this.selectedValue);
 
-   @override
+  @override
   List<Object> get props => [selectedValue];
 }
 
@@ -24,7 +24,8 @@ class ReligionSelectionEvent extends PreferencesEvent {
 
   ReligionSelectionEvent(this.selectedReligon);
 
-   @override
+  @override
   List<Object> get props => [selectedReligon];
-
 }
+
+class PreferenceSubmitEvent extends PreferencesEvent {}
