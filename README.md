@@ -16,9 +16,10 @@ The project is inteded to make finding romantic partners easy. It helps users fi
 * ProfileAccount: Basic info about the user can be created, viewed, updated. Users can delete their accounts.
 * Suggestions: Users can view suggested partners and like or dislike them.
 
-
-![a](https://github.com/hayk2377/Achaye/assets/99685585/4955fa51-4f83-41b7-8097-5ff9dc05a691)
-![b](https://github.com/hayk2377/Achaye/assets/99685585/77c625f9-34f6-4c15-a46c-56184bf8b992)
-![c](https://github.com/hayk2377/Achaye/assets/99685585/96cbfb8c-f13b-43c0-9985-9867443cc1fc)
-![d](https://github.com/hayk2377/Achaye/assets/99685585/e445ad5a-b37e-40c7-955a-426c5dbb2ea7)
-![e](https://github.com/hayk2377/Achaye/assets/99685585/32c9b78d-bc4b-4e37-a55d-7c03b491fc76)
+<div style="display: flex; flex-wrap: wrap;">
+  <img src="https://github.com/hayk2377/Achaye/assets/99685585/4955fa51-4f83-41b7-8097-5ff9dc05a691" style="width: 500px; height: auto; flex: 1;">
+  <img src="https://github.com/hayk2377/Achaye/assets/99685585/77c625f9-34f6-4c15-a46c-56184bf8b992" style="width: 500px; height: auto; flex: 1;">
+  <img src="https://github.com/hayk2377/Achaye/assets/99685585/96cbfb8c-f13b-43c0-9985-9867443cc1fc" style="width: 500px; height: auto; flex: 1;">
+  <img src="https://github.com/hayk2377/Achaye/assets/99685585/e445ad5a-b37e-40c7-955a-426c5dbb2ea7" style="width: 500px; height: auto; flex: 1;">
+  <img src="https://github.com/hayk2377/Achaye/assets/99685585/32c9b78d-bc4b-4e37-a55d-7c03b491fc76" style="width: 500px; height: auto; flex: 1;">
+</div>
