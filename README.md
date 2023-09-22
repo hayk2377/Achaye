@@ -1,11 +1,5 @@
-# Pharmaco
-The project is inteded to make finding medicine easy. It helps users find the nearest pharmacy that has thier medicine.
-### It has two main business features
-
-* Users can search for medicine and can order to reserve it via the app. They can later pick it up themselves or get it delivered to them via other means(outside the scope of the app).
-* It helps pharmacy owners display the price and amount of drugs they have in store.
-
-
+# Achaye Dating
+The project is inteded to make finding romantic partners easy. It helps users find good partners based on their preferences.
 ### Group Members
 | Name | Id |
 | -------- | ------- |
@@ -14,10 +8,6 @@ The project is inteded to make finding medicine easy. It helps users find the ne
 | Lensa Belete    | UGR/6233/13 |
 | Maria Tesfaye  | UGR/9011/13 |
 | Yonatan Haile | UGR/0431/13 |
-
-(We have decided to change our app altogether following the suggestion)
-# Achaye Dating
-The project is inteded to make finding romantic partners easy. It helps users find good partners based on their preferences.
 ### Its main business features are the following. The first two are full crud. The other two are not.
 
 * Preferences: Allows users to enter what thier partners should look like. Age, location, hobbies, religion etc. can be read, entered, updated, and deleted. 
@@ -27,3 +17,8 @@ The project is inteded to make finding romantic partners easy. It helps users fi
 * Suggestions: Users can view suggested partners and like or dislike them.
 
 
+![a](https://github.com/hayk2377/Achaye/assets/99685585/4955fa51-4f83-41b7-8097-5ff9dc05a691)
+![b](https://github.com/hayk2377/Achaye/assets/99685585/77c625f9-34f6-4c15-a46c-56184bf8b992)
+![c](https://github.com/hayk2377/Achaye/assets/99685585/96cbfb8c-f13b-43c0-9985-9867443cc1fc)
+![d](https://github.com/hayk2377/Achaye/assets/99685585/e445ad5a-b37e-40c7-955a-426c5dbb2ea7)
+![e](https://github.com/hayk2377/Achaye/assets/99685585/32c9b78d-bc4b-4e37-a55d-7c03b491fc76)
