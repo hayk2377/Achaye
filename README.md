@@ -1,13 +1,5 @@
 # Achaye Dating
 The project is inteded to make finding romantic partners easy. It helps users find good partners based on their preferences.
-### Group Members
-| Name | Id |
-| -------- | ------- |
-| Gedion Ezra  | UGR/0448/13 |
-| Haykel Muktar | UGR/3709/13 |
-| Lensa Belete    | UGR/6233/13 |
-| Maria Tesfaye  | UGR/9011/13 |
-| Yonatan Haile | UGR/0431/13 |
 ### Its main business features are the following. The first two are full crud. The other two are not.
 
 * Preferences: Allows users to enter what thier partners should look like. Age, location, hobbies, religion etc. can be read, entered, updated, and deleted. 
